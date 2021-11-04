@@ -1,0 +1,9 @@
+﻿@using GroupMngmt.Models;
+@{
+    ViewBag.Title = "Home Page";
+    List<Group> groups = ViewBag.Groups;
+}
+@foreach (var item in groups)
+{
+    <h1>@item.groupName</h1>
+}
