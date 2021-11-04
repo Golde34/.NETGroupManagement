@@ -1,4 +1,16 @@
-Create database Lillab
+
+USE master
+GO
+alter database [Lillab] set single_user with rollback immediate
+if exists (select * from sysdatabases where name='Lillab') drop database Lillab
+GO
+
+CREATE DATABASE Lillab
+GO
+
+USE Lillab
+GO
+
 CREATE TABLE [Users] (
 	userID int NOT NULL identity(1,1) PRIMARY KEY,
 	username nvarchar(255) NOT NULL,
@@ -19,11 +31,12 @@ groupName nvarchar(255),
 [description] nvarchar(255),
 [status] bit
 );
-CREATE TABLE Menbers(
+CREATE TABLE Members(
 	userID int NOT NULL ,
 	groupId int not null,
 	roleId int,
 	[status] bit,
+	foreign key(userID) references [Users](userID),
 	foreign key(groupId) references [Groups](groupId),
 	foreign key(roleId) references [Roles](roleId)
 );
