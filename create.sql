@@ -31,7 +31,7 @@ groupName nvarchar(255),
 [description] nvarchar(255),
 [status] bit
 );
-CREATE TABLE Members(
+CREATE TABLE Menbers(
 	userID int NOT NULL ,
 	groupId int not null,
 	roleId int,
