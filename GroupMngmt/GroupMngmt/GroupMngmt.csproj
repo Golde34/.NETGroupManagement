@@ -128,11 +128,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DAO.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAO.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Menber.cs" />

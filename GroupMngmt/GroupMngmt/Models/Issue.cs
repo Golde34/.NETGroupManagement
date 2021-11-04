@@ -31,5 +31,6 @@ namespace GroupMngmt.Models
         public int? projectId { get; set; }
 
         public virtual Project Project { get; set; }
+        public virtual ICollection<Menber> Menbers { get; set; }
     }
 }

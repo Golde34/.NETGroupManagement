@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace GroupMngmt.Models
 {
-    public partial class DAO : DbContext
+    public partial class Model : DbContext
     {
-        public DAO()
-            : base("name=DAO")
+        public Model()
+            : base("name=Model")
         {
         }
 

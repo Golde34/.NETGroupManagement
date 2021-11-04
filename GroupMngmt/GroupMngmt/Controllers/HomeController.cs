@@ -9,7 +9,7 @@ namespace GroupMngmt.Controllers
 {
     public class HomeController : Controller
     {
-        DAO dao = new DAO();
+        Model dao = new Model();
         public List<Group> GetGroups()
         {
             return dao.Groups.SqlQuery("select * from Groups ").ToList();

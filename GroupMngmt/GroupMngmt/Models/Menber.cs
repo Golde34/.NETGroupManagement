@@ -25,5 +25,6 @@ namespace GroupMngmt.Models
         public virtual Group Group { get; set; }
 
         public virtual Role Role { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
     }
 }
