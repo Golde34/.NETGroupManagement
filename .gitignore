@@ -2,3 +2,8 @@ dotNet/dotNet/obj/
 dotNet/dotNet/bin/
 dotNet/dotNet/appsettings.json
 *.xml
+dotNet/dotNet/obj/
+dotNet/dotNet/obj/
+dotNet/dotNet/obj/
+dotNet/dotNet/bin/
+dotNet/dotNet/appsettings.json
