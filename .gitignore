@@ -3,3 +3,6 @@ dotNet/dotNet/obj/
 dotNet/dotNet/obj/
 dotNet/dotNet/bin/
 dotNet/dotNet/appsettings.json
+GroupMngmt/GroupMngmt/Web.config
+groupMngmt/groupMngmt/Web.Debug.config
+groupMngmt/groupMngmt/Web.Release.config
