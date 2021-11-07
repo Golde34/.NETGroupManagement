@@ -16,7 +16,7 @@ namespace GroupMngmt.Controllers
         {
             try
             {
-                User x = db.Users.SqlQuery($"select * from [User] where BINARY_CHECKSUM(username) = BINARY_CHECKSUM('{username}') and BINARY_CHECKSUM([password]) = BINARY_CHECKSUM('{pass}')").First();
+                User x = db.Users.SqlQuery($"select * from [Users] where BINARY_CHECKSUM(username) = BINARY_CHECKSUM('{username}') and BINARY_CHECKSUM([password]) = BINARY_CHECKSUM('{pass}')").First();
                 return x;
             }
             catch(Exception ex)
@@ -25,7 +25,8 @@ namespace GroupMngmt.Controllers
                 return null;
             }
         }
-        public User checkExistUserName(string email)
+        
+        public User GetUserByEmail(string email)
         {
             try
             {
@@ -38,10 +39,18 @@ namespace GroupMngmt.Controllers
                 return null;
             }
         }
+
         public void RegistUser(string email, string password, string fullname,string username)
         {
-            db.Users.Add(new User() { email = email, password = password, fullname = fullname, status = true, username = username });
-            db.SaveChanges();
+            try
+            {
+                db.Database.ExecuteSqlCommand($"insert into Users(email, password, fullname, username) values ({email}, {password}, {fullname}, {username})");
+                db.SaveChanges();
+            }
+            catch(Exception ex){
+                ex.StackTrace.ToString();
+            }
+            
         }
         #endregion
         // Group DAO
@@ -50,7 +59,7 @@ namespace GroupMngmt.Controllers
         {
             try
             {
-                db.Groups.Add(new Group { groupName = name, description = description, status = true });
+                db.Database.ExecuteSqlCommand($"insert into Groups(groupName,description,status) values({name}, {description}, {true})");
                 db.SaveChanges();
             }
             catch(Exception ex)
