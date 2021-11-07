@@ -152,7 +152,6 @@ namespace GroupMngmt.Controllers
                 ex.StackTrace.ToString();
                 return null;
             }
-
         }
         #endregion
         //Role DAO
