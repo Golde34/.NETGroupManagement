@@ -1,14 +1,10 @@
-dotNet/dotNet/obj/
-dotNet/dotNet/obj/
-dotNet/dotNet/obj/
-dotNet/dotNet/bin/
-dotNet/dotNet/appsettings.json
 GroupMngmt/GroupMngmt/Web.config
 groupMngmt/groupMngmt/Web.Debug.config
 groupMngmt/groupMngmt/Web.Release.config
 groupMngmt/.vs/GroupMngmt/config/
 groupMngmt/.vs/GroupMngmt/
 groupMngmt/GroupMngmt/bin/
-groupMngmt/GroupMngmt/Web.congif/
 groupMngmt/GroupMngmt/obj/
 groupMngmt/GroupMngmt/Web.config/
+groupMngmt/GroupMngmt/Web.Debug.config
+groupMngmt/GroupMngmt/Web.Release.config
