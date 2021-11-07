@@ -16,7 +16,10 @@ namespace GroupMngmt.Controllers
         {
             return View();
         }
-
+        public ActionResult Register()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Index(string username, string pass)
         {
@@ -31,7 +34,7 @@ namespace GroupMngmt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register()
+        public ActionResult Register(string username, string pass, string mail, string fullname)
         {
             return View();
         }
