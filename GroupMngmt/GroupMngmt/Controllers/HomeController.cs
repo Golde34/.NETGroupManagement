@@ -35,7 +35,7 @@ namespace GroupMngmt.Controllers
         }
         public ActionResult Index()
         {
-            ViewBag.Groups = GetGroups();
+            /*ViewBag.Groups = GetGroups();*/
             return View();
         }
 

@@ -15,7 +15,7 @@ CREATE TABLE [Users] (
 	userID int NOT NULL identity(1,1) PRIMARY KEY,
 	username nvarchar(255) NOT NULL,
     [password] nvarchar(255) NOT NULL,
-	 fullname  nvarchar(255) not null,	
+	fullname  nvarchar(255) not null,	
 	email nvarchar(255),
 	profileimage  nvarchar(255),	
 	[status] bit,
@@ -31,7 +31,7 @@ groupName nvarchar(255),
 [description] nvarchar(255),
 [status] bit
 );
-CREATE TABLE Menbers(
+CREATE TABLE Members(
 	userID int NOT NULL ,
 	groupId int not null,
 	roleId int,
@@ -63,6 +63,14 @@ foreign key(projectId) references [Projects](projectId)
 create table MemberIssues(
 userId int,
 issueId int,
+[status] bit,
 foreign key(userId) references [Users](userId),
 foreign key(issueId) references [Issues](issueId)
+);
+create table Invitation(
+userId int,
+groupId int,
+[status] bit,
+foreign key(userId) references [Users](userId),
+foreign key(groupId) references [Groups](groupId)
 );
