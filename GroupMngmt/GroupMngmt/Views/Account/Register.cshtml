@@ -28,7 +28,8 @@
 <body>
     <div class="container">
         <div id="logreg-forms">
-            <form class="form-signin" action="Account/Register" method="POST">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-signin" }))
+            {
                 <p style="font-size: 30px;"> Sign-Up</p>
 
 
@@ -40,16 +41,17 @@
                 <input id="fullname" type="text" pattern=".*\S+.*" name="fname" class="form-control" value="" placeholder="Your full name" required autofocus="">
 
                 <label for="email" class="label">Email</label>
-                <input id="email" type="text" pattern="[a-z0-9._%+-]+[a-z0-9.-]+\.[a-z]{2,4}$" name="email" value="" class="form-control" placeholder="Your email" required autofocus="">
+                <input id="email" type="text" name="mail" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" value="" class="form-control" placeholder="Your email" required autofocus="">
 
                 <label for="pass" class="label">Password</label>
                 <input id="pass" type="password" name="signuppass" placeholder="Password" pattern="^\S+$"
                        value="" class="form-control" data-type="password" required autofocus="">
 
                 <label for="pass" class="label">Repeat Password</label>
-                <input id="repassword" oninput="check(this)" type="password" pattern="^\S+$" name="resignuppass" value="" class="form-control" placeholder="Repeat Password" data-type="password" required autofocus="">
+                <input id="repassword" oninput="check(this)" type="password" name="resignuppass" value="" class="form-control" placeholder="Repeat Password" data-type="password" required autofocus="">
 
                 <br>
+                <p class="text-right" style="font-size: 12px;">@ViewBag.MessRegis</p>
 
                 <button class="btn btn-secondary btn-block buttonSignIn" type="submit">
                     <i class="fas fa-sign-in-alt"></i> Sign-Up
@@ -58,10 +60,9 @@
                 <br>
                 <p style="font-size: 15px;">Already have an account?</p>
                 <div class="row">
-                    <a class="col-md-6" style="font-size: 15px;" href="Account/Index" id="cancel_signup"> Back to Login</a>
+                    <a class="col-md-6" style="font-size: 15px;" href="Index" id="cancel_signup"> Back to Login</a>
                 </div>
-
-            </form>
+            }
         </div>
 
         <hr>
@@ -77,7 +78,7 @@
         <script src="/script.js"></script>
         <script language='javascript' type='text/javascript'>
             function check(input) {
-                if (input.value != document.getElementById('password').value) {
+                if (input.value != document.getElementById('pass').value) {
                     input.setCustomValidity('Password Must be Matching.');
                 } else {
                     input.setCustomValidity('');

@@ -44,7 +44,7 @@ namespace GroupMngmt.Controllers
         {
             try
             {
-                db.Database.ExecuteSqlCommand($"insert into Users(email, password, fullname, username) values ({email}, {password}, {fullname}, {username})");
+                db.Database.ExecuteSqlCommand($"insert into Users(email, password, fullname, username, profileimage, status ) values ('{email}', '{password}', '{fullname}', '{username}', 'link', 1)");
                 db.SaveChanges();
             }
             catch(Exception ex){
@@ -53,6 +53,43 @@ namespace GroupMngmt.Controllers
             
         }
 
+        public Boolean checkExistUsername(string username)
+        {
+            Boolean isExist = false;
+            try
+            {
+                var x = db.Users.SqlQuery($"select * from [Users] where BINARY_CHECKSUM(username) = BINARY_CHECKSUM('{username}')").First();
+                if (x != null)
+                {
+                    isExist = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+
+            return isExist;
+        }
+
+        public Boolean checkExistMail(string mail)
+        {
+            Boolean isExist = false;
+            try
+            {
+                var x = db.Users.SqlQuery($"select * from [Users] where BINARY_CHECKSUM(email) = BINARY_CHECKSUM('{mail}')").First();
+                if (x != null)
+                {
+                    isExist = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+
+            return isExist;
+        }
 
         #endregion
         // Group DAO
