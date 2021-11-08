@@ -9,6 +9,7 @@ namespace GroupMngmt.Controllers
 {
     public class AccountController : Controller
     {
+        Model model = new Model();
         DAO dao = new DAO();
         
         public ActionResult Index()
@@ -41,20 +42,55 @@ namespace GroupMngmt.Controllers
 
         }
 
-
-
         public ActionResult Register()
         {
             return View();
         }
+
         public ActionResult Login()
         {
             return View();
         }
-        Model model = new Model();
+   
 
+        [HttpPost]
+        public ActionResult Register(string signupusername, string signuppass,string resignuppass, string mail, string fname)
+        {
+                Boolean isExist = false;
+                if (dao.checkExistUsername(signupusername) == true)
+                {
+                ViewBag.messRegis = "Duplicate username!";
+                    isExist = true;
+                }
+                else if (dao.checkExistMail(mail) == true)
+                {
+                ViewBag.messRegis = "Duplicate mail!";
+                    isExist = true;
+                }
+                else
+                {
+                    isExist = false;
+                }
+                
+                //
+                if(isExist == false)
+                {
+                    dao.RegistUser(mail, signuppass, fname, signupusername);
+                    ViewBag.MessRegis = "Signup successfully";
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
+        }
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
         //[HttpPost]
-        //public ActionResult Login(string username, string password)
+        //public ActionResult Login(string email, string password)
+
         //{
            
 
@@ -91,5 +127,28 @@ namespace GroupMngmt.Controllers
         //    Session.Clear();
         //    return RedirectToAction("Welcome");
         //}
+        public ActionResult ForgotPass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPass(string username, string email)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = model.Users.Where(s => s.username.Equals(username) && s.email.Equals(email)).ToList();
+                if (data.Count() > 0)
+                {
+                    ViewBag.message = "Reset password successfully!";
+                    return RedirectToAction("ForgotPass");
+                }
+                else
+                {
+                    ViewBag.message = "Invalid username or email!";
+                    return RedirectToAction("ForgotPass");
+                }
+            }
+            return View();
+        }
     }
 }
