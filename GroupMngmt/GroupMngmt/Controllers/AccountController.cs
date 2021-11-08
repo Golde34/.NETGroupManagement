@@ -9,6 +9,7 @@ namespace GroupMngmt.Controllers
 {
     public class AccountController : Controller
     {
+        Model model = new Model();
         DAO dao = new DAO();
         // GET: Account
         [HttpGet]
@@ -43,7 +44,7 @@ namespace GroupMngmt.Controllers
         //    return View();
         //}
         //[HttpPost]
-        //public ActionResult Login(string email,string password)
+        //public ActionResult Login(string email, string password)
         //{
         //    if (ModelState.IsValid)
         //    {
@@ -93,5 +94,28 @@ namespace GroupMngmt.Controllers
         //    Session.Clear();
         //    return RedirectToAction("Welcome");
         //}
+        public ActionResult ForgotPass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPass(string username, string email)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = model.Users.Where(s => s.username.Equals(username) && s.email.Equals(email)).ToList();
+                if (data.Count() > 0)
+                {
+                    ViewBag.message = "Reset password successfully!";
+                    return RedirectToAction("ForgotPass");
+                }
+                else
+                {
+                    ViewBag.message = "Invalid username or email!";
+                    return RedirectToAction("ForgotPass");
+                }
+            }
+            return View();
+        }
     }
 }
