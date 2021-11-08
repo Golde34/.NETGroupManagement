@@ -16,7 +16,7 @@ namespace GroupMngmt.Controllers
         {
             try
             {
-                User x = db.Users.SqlQuery($"select * from [Users] where BINARY_CHECKSUM(username) = BINARY_CHECKSUM('{username}') and BINARY_CHECKSUM([password]) = BINARY_CHECKSUM('{pass}')").First();
+                User x = db.Users.SqlQuery($"select * from Users where username = '{username}' and password = '{pass}'").First();
                 return x;
             }
             catch(Exception ex)

@@ -10,53 +10,54 @@ namespace GroupMngmt.Controllers
     public class AccountController : Controller
     {
         DAO dao = new DAO();
-        // GET: Account
-        [HttpGet]
+        
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(string username, string pass)
-        {
-            User x = dao.GetUserLogin(username, pass);
-            if (x == null)
-            {
-                ViewBag.Mess = "Invalid email or password";
+           
                 return View();
-            }
-            Session["user"] = x;
-            return RedirectToAction("Index", "Home");
+           
+
         }
 
         [HttpPost]
+        public ActionResult Index(string username, string password) {
+
+            var x = dao.GetUserLogin(username, password);
+                if (x!=null)
+                {
+
+                Session["idUser"] = x.userID;
+                //  ViewBag.error = "Sucessful";
+
+                return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.error = "Login failed";
+                    return View();
+                }
+            
+            return View();
+
+        }
+
+
+
         public ActionResult Register()
         {
             return View();
         }
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
+        public ActionResult Login()
+        {
+            return View();
+        }
+        Model model = new Model();
+
         //[HttpPost]
-        //public ActionResult Login(string email,string password)
+        //public ActionResult Login(string username, string password)
         //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var data = dao.Users.Where(s => s.email.Equals(email) && s.password.Equals(password)).ToList();
-        //        if (data.Count() > 0)
-        //        {
-        //            Session["idUser"] = data.FirstOrDefault().userID;
-        //            return RedirectToAction("Welcome");
-        //        }
-        //        else
-        //        {
-        //            ViewBag.message = "Login failed";
-        //            return RedirectToAction("Login");
-        //        }
-        //    }
-        //    return View();
+           
+
         //}
 
         //public ActionResult Register()
