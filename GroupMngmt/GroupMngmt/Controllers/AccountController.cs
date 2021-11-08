@@ -34,9 +34,35 @@ namespace GroupMngmt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string username, string pass, string mail, string fullname)
+        public ActionResult Register(string signupusername, string signuppass,string resignuppass, string mail, string fname)
         {
-            return View();
+                Boolean isExist = false;
+                if (dao.checkExistUsername(signupusername) == true)
+                {
+                ViewBag.messRegis = "Duplicate username!";
+                    isExist = true;
+                }
+                else if (dao.checkExistMail(mail) == true)
+                {
+                ViewBag.messRegis = "Duplicate mail!";
+                    isExist = true;
+                }
+                else
+                {
+                    isExist = false;
+                }
+                
+                //
+                if(isExist == false)
+                {
+                    dao.RegistUser(mail, signuppass, fname, signupusername);
+                    ViewBag.MessRegis = "Signup successfully";
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
         }
         //public ActionResult Login()
         //{
