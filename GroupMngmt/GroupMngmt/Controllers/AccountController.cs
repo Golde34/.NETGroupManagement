@@ -16,10 +16,7 @@ namespace GroupMngmt.Controllers
         {
             return View();
         }
-        public ActionResult Register()
-        {
-            return View();
-        }
+
         [HttpPost]
         public ActionResult Index(string username, string pass)
         {
@@ -31,6 +28,11 @@ namespace GroupMngmt.Controllers
             }
             Session["user"] = x;
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Register()
+        {
+            return View();
         }
 
         [HttpPost]
