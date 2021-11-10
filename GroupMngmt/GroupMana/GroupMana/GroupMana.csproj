@@ -194,6 +194,7 @@
     <Content Include="Views\Intro\Index.cshtml" />
     <Content Include="Views\Member\ViewInviation.cshtml" />
     <Content Include="Views\Project\AddProject.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
