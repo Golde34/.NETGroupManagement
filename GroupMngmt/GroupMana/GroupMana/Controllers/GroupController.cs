@@ -53,6 +53,13 @@ namespace GroupMana.Controllers
             ViewBag.member = members;*/
             return View();
         }
+        [HttpPost]
+        public ActionResult ViewMember(int groupId)
+        {
+            var members = dao.Members.Where(s => s.groupId == groupId).ToList();
+            ViewBag.members = members;
+            return View();
+        }
         public ActionResult InviteMember()
         {
             return View();
@@ -81,7 +88,7 @@ namespace GroupMana.Controllers
                     ViewBag.message = "Member already in group";
                     return View();
                 }
-                Member member = new Member { groupId = group, roleId = role, userID = user.userID, status = true };
+                Member member = new Member { groupId = group, roleId = role, userID = user.userID, status = 0 };
                 dao.Members.Add(member);
                 dao.SaveChanges();
                 return Redirect("Home/Index");
