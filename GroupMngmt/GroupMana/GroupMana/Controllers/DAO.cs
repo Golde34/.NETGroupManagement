@@ -92,6 +92,39 @@ namespace GroupMana.Controllers
             return isExist;
         }
 
+        public Boolean checkExistUserNameAndEmail(string username, string email)
+        {
+            Boolean isExist = false;
+            try
+            {
+                var x = db.Users.SqlQuery($"select * from [Users] where BINARY_CHECKSUM(username) = BINARY_CHECKSUM('{username}') " +
+                    $"and BINARY_CHECKSUM(email) = BINARY_CHECKSUM('{email}')").First();
+                if (x != null)
+                {
+                    isExist = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+
+            return isExist;
+        }
+
+        public void ResetPass(string username, string pass)
+        {
+            try
+            {
+                db.Database.ExecuteSqlCommand($"update Users set password = '{pass}' where username = '{username}'");
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+        }
+
         #endregion
         // Group DAO
         #region

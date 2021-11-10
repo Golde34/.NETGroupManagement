@@ -133,23 +133,27 @@ namespace GroupMana.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ForgotPass(string username, string email)
+        public ActionResult ForgotPass(string username, string email, string newpassword, string renewpassword)
         {
-            if (ModelState.IsValid)
+            if (dao.checkExistUserNameAndEmail(username, email) == false)
             {
-                var data = model.Users.Where(s => s.username.Equals(username) && s.email.Equals(email)).ToList();
-                if (data.Count() > 0)
+                ViewBag.mess = "Username or email does not exist!";
+                return View();
+            }
+            else
+            {
+                if (!newpassword.Equals(renewpassword))
                 {
-                    ViewBag.message = "Reset password successfully!";
-                    return RedirectToAction("ForgotPass");
+                    ViewBag.mess = "Password and re-password does not match!";
+                    return View();
                 }
                 else
                 {
-                    ViewBag.message = "Invalid username or email!";
-                    return RedirectToAction("ForgotPass");
+                    dao.ResetPass(username, newpassword);
+                    ViewBag.mess = "Reset password successfully!";
+                    return View();
                 }
             }
-            return View();
         }
     }
 }
