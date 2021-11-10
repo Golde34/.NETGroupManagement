@@ -195,7 +195,7 @@
 <body>
     <div class="container">
         <div id="logreg-forms">
-            @using (Html.BeginForm("Index", "ForgotPass", FormMethod.Post, new { @class = "form-forgotpass" }))
+            @using (Html.BeginForm("ForgotPass", "Account", FormMethod.Post, new { @class = "form-forgotpass" }))
             {
                 @Html.AntiForgeryToken()
                 <p style="font-size: 30px;">Reset password</p>
@@ -208,17 +208,17 @@
                        id="email" placeholder="Email" required>
                 <!--New password-->
                 <label class="label">New password</label>
-                <input id="newpassword" type="text" name="newpassword" placeholder="New password" class="form-control" required>
+                <input id="newpassword" type="password" name="newpassword" placeholder="New password" class="form-control" required>
                 <!--Re-enter new password-->
                 <label class="label">Re-enter new password</label>
-                <input id="renewpassword" type="text" name="renewpassword" placeholder="Re-enter new password" class="form-control" required>
+                <input id="renewpassword" type="password" name="renewpassword" placeholder="Re-enter new password" class="form-control" required>
                 <!--Submit-->
                 <p class="text-right" style="font-size: 12px;">@ViewBag.Mess</p>
                 <button class="btn btn-secondary btn-block buttonSignIn" type="submit">
                     <i class="fas fa-sign-in-alt"></i> Submit
                 </button>
                 <div class="row">
-                    <a class="col-md-6" style="font-size: 15px;" href="" id="cancel_signup"> Back to Login</a>
+                    <a class="col-md-6" style="font-size: 15px;" href="Index" id="cancel_signup"> Back to Login</a>
                     <a class="col-md-6 text-right" style="font-size: 15px;" href="" id="cancel_signup"> Back to HomePage</a>
                 </div>
             }
