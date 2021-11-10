@@ -17,7 +17,7 @@ namespace GroupMana.Controllers
         }
         public ActionResult AddGroup()
         {
-            return View();
+            return View(dao.Groups.ToList());
         }
         [HttpPost]
         public ActionResult AddGroup(string groupname, string description)
@@ -28,6 +28,24 @@ namespace GroupMana.Controllers
             dao.Groups.Add(group);
             dao.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult FindGroup()
+        {
+      
+            return View(dao.Groups.ToList());
+        }
+        [HttpPost]
+        public ActionResult FindGroup(string searchname)
+        {
+            var links = (from l in dao.Groups // lấy toàn bộ liên kết
+                        select l).ToList();
+
+            if (!String.IsNullOrEmpty(searchname)) // kiểm tra chuỗi tìm kiếm có rỗng/null hay không
+            {
+                links = links.Where(s => s.groupName.Contains(searchname)).ToList(); //lọc theo chuỗi tìm kiếm
+            }
+
+            return View(links);
         }
         public ActionResult ViewMember()
         {
