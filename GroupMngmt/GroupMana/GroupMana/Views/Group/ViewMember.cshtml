@@ -1,0 +1,244 @@
+﻿
+@using GroupMngmt.Models
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Soft UI Dashboard by Creative Tim</title>
+    <link href="~/Content/template.css" rel="stylesheet" />
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon">
+                    <img width="125" height="75" src="~/Images/fpt.png" class="header-logo-dark" />
+                </div>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0">
+        @*class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"*@
+        <div id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                        </div>
+                        <span class="nav-link-text ms-1">Group Name</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                        </div>
+                        <span class="nav-link-text ms-1">Group Information</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                        </div>
+                        <span class="nav-link-text ms-1">Issue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                        </div>
+                        <span class="nav-link-text ms-1">Project</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group">
+                        </div>
+                    </div>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 ">User Name</span>
+                                <img class="img-profile rounded-circle"
+                                     src="upload/<%= curUser.getProfileImage()%>" width="30" height="30">
+                            </a>
+                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="UserControllerMap?service=info">
+                                        <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    Profile
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="HomePageControllerMap">
+                                        <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    Shopping
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="UserControllerMap?service=logout">
+                                        <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    Log out
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="container-fluid py-4">
+            <div class="row mt-4">
+
+            </div>
+            <div class="row my-4">
+                <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+                    <div class="card">
+                        <div class="card-body px-0 pb-2">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                                <h3 class="m-0 font-weight-bold text-primary">Group</h3>
+                                <a href="Group/InviteMember" class="btn btn-success">Invite new member</a>
+                            </div>
+                            <div class="card-body">
+                                @*<div class="table_head py-3 d-flex justify-content-between">
+                                        <div class="rowNum">
+                                            <h6 class="d-inline">Select number of Rows</h6>
+                                            <div class="form-group d-inline">
+                                                <select onchange="pagination()" name="state" id="maxRows" class="form-control" style="width:80px;display:inline;">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="5000">Show All</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input id="search" style="width: 100%;" type="text" oninput="pagination()" placeholder="Search.." class="form-control">
+                                        </div>
+                                    </div>*@
+                                @*<table style="width: 100%;" class="text-center ">
+                                        <thead class="text-uppercase bg-gray-200">
+                                            <tr>
+                                                <th style="width: 60%">Member Name</th>
+                                                <th style="width: 20%">Role</th>
+                                                <th style="width: 20%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="company">
+                                            @foreach (var mem in ViewBag.member)
+                                            {
+                                                @User
+                                                <tr>
+                                                    <td>@mem.roleId</td>
+                                                    <td>@mem.roleId</td>
+                                                    <td>
+                                                        <a  href="@Url.Action("Delete","Post",new {id=mem.userId})" onclick="return confirm('Are you sure?');" class="btn btn-danger">Remove</a>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                    </table>*@
+                                @*<div class="pagination-container mt-4 d-flex justify-content-around" style="cursor: pointer;">
+                                        <nav>
+                                            <%if (totalPage > 1) {%>
+                                            <ul class="pagination" id="showpage">
+                                                <li data-repair="1" class="page-item">
+                                                    <a class="page-link" aria-label="First">
+                                                        <span aria-hidden="true">
+                                                            <i class="fas fa-backward"></i>
+                                                            <span class="sr-only">(current)</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li data-repair="<%=prev%>" class="page-item">
+                                                    <a class="page-link" aria-label="Previous">
+                                                        <span aria-hidden="true">
+                                                            <i class="fas fa-arrow-left"></i>
+                                                            <span class="sr-only">(current)</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <%int limit = totalPage>5 ? 5 : totalPage;%>
+                                                <%for (int i = index; i <= limit; i++) {%>
+                                                <%if (index == i) {%>
+                                                <li class="page-item active" data-repair="<%=i%>">
+                                                    <%} else {%>
+                                                <li class="page-item" data-repair="<%=i%>">
+                                                    <%}%>
+                                                    <a class="page-link">
+                                                        <div class="index"><%=i%></div>
+                                                        <span class="sr-only">(current)</span>
+                                                    </a>
+                                                </li>
+                                                <%}%>
+                                                <li data-repair="<%=next%>" class="page-item">
+                                                    <a class="page-link" aria-label="Next">
+                                                        <span aria-hidden="true">
+                                                            <i class="fas fa-arrow-right"></i>
+                                                            <span class="sr-only">(current)</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li data-repair="<%=totalPage%>" class="page-item">
+                                                    <a class="page-link" aria-label="Last">
+                                                        <span aria-hidden="true">
+                                                            <i class="fas fa-forward"></i>
+                                                            <span class="sr-only">(current)</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <%}%>
+                                        </nav>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="~/Scripts/template.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+</body>
+
+</html>

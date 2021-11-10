@@ -11,6 +11,24 @@ namespace GroupMngmt.Controllers
     {
         Model dao = new Model();
         // GET: Member
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult AddGroup()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddGroup(string groupname,string description)
+        {
+            Group group = new Group();
+            group.groupName = groupname;
+            group.description = description;
+            dao.Groups.Add(group);
+            dao.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public ActionResult ViewMember()
         {
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
