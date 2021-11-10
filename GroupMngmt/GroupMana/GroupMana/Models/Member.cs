@@ -20,7 +20,7 @@ namespace GroupMana.Models
 
         public int? roleId { get; set; }
 
-        public bool? status { get; set; }
+        public int? status { get; set; }
 
         public virtual Group Group { get; set; }
 
