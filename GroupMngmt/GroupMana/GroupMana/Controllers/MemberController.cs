@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GroupMana.Models;
+using System.Data.Entity;
 
 namespace GroupMana.Controllers
 {
@@ -13,7 +14,30 @@ namespace GroupMana.Controllers
         // GET: Member
         public ActionResult ViewInviation()
         {
+            int userId = (int)Session["idUser"];
+            var invitation = dao.Members.Where(s => s.userID == userId && s.status == 0).ToList();
+            ViewBag.Invitations = invitation;
             return View();
+        }
+        [HttpPost]
+        public ActionResult HandleInvitation(string action, int groupId)
+        {
+            int userId = (int)Session["idUser"];
+            var invitation = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
+            if (action.Equals("accept"))
+            {
+                invitation.status = 1;
+                dao.Entry(invitation).State = EntityState.Modified;
+                dao.SaveChanges();
+                return RedirectToAction("ViewInviation");
+            }else if (action.Equals("refuse"))
+            {
+                invitation.status = -1;
+                dao.Entry(invitation).State = EntityState.Modified;
+                dao.SaveChanges();
+                return RedirectToAction("ViewInviation");
+            }
+            return RedirectToAction("ViewInviation");
         }
         [HttpPost]
         public ActionResult LeaveGroup(int userId, int groupId)
