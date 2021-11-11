@@ -40,6 +40,20 @@ namespace GroupMana.Controllers
             }
         }
 
+        public User GetUserByUserID(string userid)
+        {
+            try
+            {
+                User x = db.Users.SqlQuery($"SELECT * FROM Users WHERE BINARY_CHECKSUM(userID) = BINARY_CHECKSUM('{userid}')").First();
+                return x;
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return null;
+            }
+        }
+
         public void RegistUser(string email, string password, string fullname, string username)
         {
             try
@@ -236,6 +250,26 @@ namespace GroupMana.Controllers
                 return null;
             }
         }
+
+        public void EditIssue(string title, DateTime duedate, DateTime startdate, string description, string content, int state, string creator)
+        {
+            try
+            {
+                db.Database.ExecuteSqlCommand($"update Issues set title = '{title}'," +
+                    $"dueDate = '{duedate}'," +
+                    $"startDate = '{startdate}'," +
+                    $"description = '{description}'," +
+                    $"content = '{content}'," +
+                    $"state = '{state}'," +
+                    $"creator = '{creator}'");
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+        }
+
         #endregion
         //Role DAO
         #region
