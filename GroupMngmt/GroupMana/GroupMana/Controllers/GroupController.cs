@@ -23,15 +23,15 @@ namespace GroupMana.Controllers
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
             Group group = new Group();
-            bool privateOrPublic = false;
+            int privateOrPublic = 0;
             group.groupName = groupname;
             group.description = description;
             if (state.Equals("Private"))
             {
-                privateOrPublic = false;
+                privateOrPublic = 0;
             } else
             {
-                privateOrPublic = true;
+                privateOrPublic = 1;
             }
             group.state = privateOrPublic;
             group.purpose = purpose;
@@ -42,14 +42,14 @@ namespace GroupMana.Controllers
         }
         public ActionResult FindGroup()
         {
-      
+
             return View(dao.Groups.ToList());
         }
         [HttpPost]
         public ActionResult FindGroup(string searchname)
         {
             var links = (from l in dao.Groups // lấy toàn bộ liên kết
-                        select l).ToList();
+                         select l).ToList();
 
             if (!String.IsNullOrEmpty(searchname)) // kiểm tra chuỗi tìm kiếm có rỗng/null hay không
             {

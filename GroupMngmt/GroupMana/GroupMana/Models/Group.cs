@@ -26,7 +26,7 @@ namespace GroupMana.Models
         [StringLength(255)]
         public string purpose { get; set; }
 
-        public bool? state { get; set; }
+        public int? state { get; set; }
 
         public bool? status { get; set; }
 
