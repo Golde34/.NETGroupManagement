@@ -20,11 +20,22 @@ namespace GroupMana.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddGroup(string groupname, string description)
+        public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
             Group group = new Group();
+            bool privateOrPublic = false;
             group.groupName = groupname;
             group.description = description;
+            if (state.Equals("Private"))
+            {
+                privateOrPublic = false;
+            } else
+            {
+                privateOrPublic = true;
+            }
+            group.state = privateOrPublic;
+            group.purpose = purpose;
+            group.status = true;
             dao.Groups.Add(group);
             dao.SaveChanges();
             return RedirectToAction("Index");
