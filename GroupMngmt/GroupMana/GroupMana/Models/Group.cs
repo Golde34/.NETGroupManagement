@@ -23,6 +23,11 @@ namespace GroupMana.Models
         [StringLength(255)]
         public string description { get; set; }
 
+        [StringLength(255)]
+        public string purpose { get; set; }
+
+        public bool? state { get; set; }
+
         public bool? status { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

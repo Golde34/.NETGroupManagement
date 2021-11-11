@@ -39,8 +39,6 @@ namespace GroupMana.Controllers
                 return View();
             }
 
-            return View();
-
         }
 
         public ActionResult Register()
