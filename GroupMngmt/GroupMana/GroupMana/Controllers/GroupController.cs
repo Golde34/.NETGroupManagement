@@ -42,7 +42,6 @@ namespace GroupMana.Controllers
         }
         public ActionResult FindGroup()
         {
-
             return View(dao.Groups.ToList());
         }
         [HttpPost]
