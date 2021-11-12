@@ -15,7 +15,7 @@ namespace GroupMana.Controllers
         public ActionResult ViewInviation()
         {
             int userId = (int)Session["idUser"];
-            var invitation = dao.Members.Where(s => s.userID == userId && s.status == 0).ToList();
+            var invitation = dao.Members.Where(s => s.userID == userId && s.status == true).ToList();
             ViewBag.Invitations = invitation;
             return View();
         }
@@ -26,14 +26,14 @@ namespace GroupMana.Controllers
             var invitation = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
             if (action.Equals("accept"))
             {
-                invitation.status = 1;
+                invitation.status = true;
                 dao.Entry(invitation).State = EntityState.Modified;
                 dao.SaveChanges();
                 return RedirectToAction("ViewInviation");
             }
             else if (action.Equals("refuse"))
             {
-                invitation.status = -1;
+                invitation.status = false;
                 dao.Entry(invitation).State = EntityState.Modified;
                 dao.SaveChanges();
                 return RedirectToAction("ViewInviation");

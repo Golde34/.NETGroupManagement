@@ -23,16 +23,16 @@ namespace GroupMana.Controllers
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
             Group group = new Group();
-            bool privateOrPublic = false;
+            int privateOrPublic = 0;
             group.groupName = groupname;
             group.description = description;
             if (state.Equals("Private"))
             {
-                privateOrPublic = false;
+                privateOrPublic = 0;
             }
             else
             {
-                privateOrPublic = true;
+                privateOrPublic = 1;
             }
             group.state = privateOrPublic;
             group.purpose = purpose;
@@ -100,7 +100,7 @@ namespace GroupMana.Controllers
                     ViewBag.message = "Member already in group";
                     return View();
                 }
-                Member member = new Member { groupId = group, roleId = role, userID = user.userID, status = 0 };
+                Member member = new Member { groupId = group, roleId = role, userID = user.userID, status =true };
                 dao.Members.Add(member);
                 dao.SaveChanges();
                 return Redirect("Home/Index");

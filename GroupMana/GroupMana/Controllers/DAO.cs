@@ -144,7 +144,7 @@ namespace GroupMana.Controllers
         {
             try
             {
-                db.Members.Add(new Member { userID = UserId, groupId = groupId, status = 0 });
+                db.Members.Add(new Member { userID = UserId, groupId = groupId, status = true });
                 db.SaveChanges();
             }
             catch (Exception ex)
