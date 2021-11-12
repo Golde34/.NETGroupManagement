@@ -236,6 +236,37 @@ namespace GroupMana.Controllers
                 return null;
             }
         }
+
+        public Issue GetIssueByIssueID(int issueid)
+        {
+            try
+            {
+                var issues = from issue in db.Issues where issue.issueId == issueid select issue;
+                return (Issue)issues;
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return null;
+            }
+        }
+
+        public void EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content, int state)
+        {
+            try
+            {
+                db.Database.ExecuteSqlCommand($"update Issues set title = '{title}'," +
+                    $"dueDate = '{duedate}', startDate = '{startdate}'," +
+                    $"description = '{description}', content = '{content}'," +
+                    $"state = '{state}' where issueId = '{issueid}'");
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+        }
+
         #endregion
         //Role DAO
         #region
