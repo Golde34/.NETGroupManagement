@@ -26,11 +26,11 @@ namespace GroupMana.Controllers
             }
         }
 
-        public User GetUserByEmail(string email)
+        public User GetUserByuserid(int id)
         {
             try
             {
-                User x = db.Users.SqlQuery($"SELECT * FROM [User] WHERE BINARY_CHECKSUM(email) = BINARY_CHECKSUM('{email}')").First();
+                User x = db.Users.SqlQuery($"select * from Users where userID = {id}").First();
                 return x;
             }
             catch (Exception ex)
