@@ -17,7 +17,10 @@ CREATE TABLE [Users] (
     [password] nvarchar(255) NOT NULL,
 	fullname  nvarchar(255) not null,	
 	email nvarchar(255),
-	profileimage  nvarchar(255),	
+	dob datetime,
+	gender int,
+	bio  nvarchar(255),	
+	isAdmin bit,
 	[status] bit,
 )
 Create table [Roles](
@@ -29,12 +32,15 @@ Create table [Groups](
 groupId int identity(1,1) Primary Key,
 groupName nvarchar(255),
 [description] nvarchar(255),
+purpose nvarchar(255),
+[state] int,
 [status] bit
 );
 CREATE TABLE Members(
 	userID int NOT NULL ,
 	groupId int not null,
 	roleId int,
+	[state] int,
 	[status] bit,
 	foreign key(userID) references [Users](userID),
 	foreign key(groupId) references [Groups](groupId),
@@ -44,6 +50,7 @@ Create table Projects(
 projectId int identity(1,1) primary key,
 projectName nvarchar(255),
 description nvarchar(255),
+createdate datetime,
 groupId int,
 [status] bit,
 foreign key(groupId) references [Groups](groupId)
@@ -58,6 +65,7 @@ content varchar(255),
 [state] int,
 creator int,
 projectId int,
+[status] bit,
 foreign key(projectId) references [Projects](projectId)
 );
 create table MemberIssues(
