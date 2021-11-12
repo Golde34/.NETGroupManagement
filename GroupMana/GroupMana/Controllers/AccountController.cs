@@ -153,5 +153,9 @@ namespace GroupMana.Controllers
                 }
             }
         }
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
     }
 }
