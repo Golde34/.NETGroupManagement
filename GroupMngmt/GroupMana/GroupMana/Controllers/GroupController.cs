@@ -9,7 +9,7 @@ namespace GroupMana.Controllers
 {
     public class GroupController : Controller
     {
-        Model dao = new Model();
+        Model model = new Model();
         // GET: Member
         public ActionResult Index()
         {
@@ -17,7 +17,7 @@ namespace GroupMana.Controllers
         }
         public ActionResult AddGroup()
         {
-            return View(dao.Groups.ToList());
+            return View(model.Groups.ToList());
         }
         [HttpPost]
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
@@ -36,19 +36,19 @@ namespace GroupMana.Controllers
             group.state = privateOrPublic;
             group.purpose = purpose;
             group.status = true;
-            dao.Groups.Add(group);
-            dao.SaveChanges();
+            model.Groups.Add(group);
+            model.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult FindGroup()
         {
 
-            return View(dao.Groups.ToList());
+            return View(model.Groups.ToList());
         }
         [HttpPost]
         public ActionResult FindGroup(string searchname)
         {
-            var links = (from l in dao.Groups // lấy toàn bộ liên kết
+            var links = (from l in model.Groups // lấy toàn bộ liên kết
                          select l).ToList();
 
             if (!String.IsNullOrEmpty(searchname)) // kiểm tra chuỗi tìm kiếm có rỗng/null hay không
@@ -60,14 +60,14 @@ namespace GroupMana.Controllers
         }
         public ActionResult ViewMember()
         {
-            /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
+            /*var members = model.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
             return View();
         }
         [HttpPost]
         public ActionResult ViewMember(int groupId)
         {
-            var members = dao.Members.Where(s => s.groupId == groupId).ToList();
+            var members = model.Members.Where(s => s.groupId == groupId).ToList();
             ViewBag.members = members;
             return View();
         }
@@ -81,9 +81,9 @@ namespace GroupMana.Controllers
             if (ModelState.IsValid)
             {
                 bool isExist = false;
-                User user = (User)dao.Users.Where(s => s.email == email);
-                var groups = from g in dao.Groups
-                             join mem in dao.Members on g.groupId equals mem.groupId
+                User user = (User)model.Users.Where(s => s.email == email);
+                var groups = from g in model.Groups
+                             join mem in model.Members on g.groupId equals mem.groupId
                              where mem.userID == user.userID
                              select g;
                 foreach (Group item in groups)
@@ -100,8 +100,8 @@ namespace GroupMana.Controllers
                     return View();
                 }
                 Member member = new Member { groupId = group, roleId = role, userID = user.userID, status = 0 };
-                dao.Members.Add(member);
-                dao.SaveChanges();
+                model.Members.Add(member);
+                model.SaveChanges();
                 return Redirect("Home/Index");
             }
             return View();
@@ -111,9 +111,9 @@ namespace GroupMana.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mem = dao.Members.Where(s => s.userID == member && s.groupId == group).First();
-                dao.Members.Remove(mem);
-                dao.SaveChanges();
+                var mem = model.Members.Where(s => s.userID == member && s.groupId == group).First();
+                model.Members.Remove(mem);
+                model.SaveChanges();
                 return RedirectToAction("ViewMember");
             }
             return RedirectToAction("ViewMember");

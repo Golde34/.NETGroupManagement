@@ -9,17 +9,17 @@ namespace GroupMana.Controllers
 {
     public class HomeController : Controller
     {
-        Model dao = new Model();
+        Model model = new Model();
         public List<Group> GetGroups()
         {
-            return dao.Groups.SqlQuery("select * from Groups ").ToList();
+            return model.Groups.SqlQuery("select * from Groups ").ToList();
         }
 
         public int Update()
         {
             int n = 0;
-            n = dao.Database.ExecuteSqlCommand("Delete from Group where groupId =1");
-            dao.SaveChanges();
+            n = model.Database.ExecuteSqlCommand("Delete from Group where groupId =1");
+            model.SaveChanges();
             return n;
         }
         public ActionResult Welcome()
@@ -61,7 +61,7 @@ namespace GroupMana.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = dao.Users.Where(s => s.email.Equals(email) && s.password.Equals(password)).ToList();
+                var data = model.Users.Where(s => s.email.Equals(email) && s.password.Equals(password)).ToList();
                 if (data.Count() > 0)
                 {
                     Session["idUser"] = data.FirstOrDefault().userID;
@@ -86,12 +86,12 @@ namespace GroupMana.Controllers
         {
             if (ModelState.IsValid)
             {
-                var check = dao.Users.FirstOrDefault(s => s.email == user.email);
+                var check = model.Users.FirstOrDefault(s => s.email == user.email);
                 if (check == null)
                 {
-                    dao.Users.Add(user);
-                    dao.Configuration.ValidateOnSaveEnabled = false;
-                    dao.SaveChanges();
+                    model.Users.Add(user);
+                    model.Configuration.ValidateOnSaveEnabled = false;
+                    model.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else

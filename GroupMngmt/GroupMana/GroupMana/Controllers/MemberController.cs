@@ -10,12 +10,12 @@ namespace GroupMana.Controllers
 {
     public class MemberController : Controller
     {
-        Model dao = new Model();
+        Model model = new Model();
         // GET: Member
         public ActionResult ViewInviation()
         {
             int userId = (int)Session["idUser"];
-            var invitation = dao.Members.Where(s => s.userID == userId && s.status == 0).ToList();
+            var invitation = model.Members.Where(s => s.userID == userId && s.status == 0).ToList();
             ViewBag.Invitations = invitation;
             return View();
         }
@@ -23,18 +23,18 @@ namespace GroupMana.Controllers
         public ActionResult HandleInvitation(string action, int groupId)
         {
             int userId = (int)Session["idUser"];
-            var invitation = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
+            var invitation = model.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
             if (action.Equals("accept"))
             {
                 invitation.status = 1;
-                dao.Entry(invitation).State = EntityState.Modified;
-                dao.SaveChanges();
+                model.Entry(invitation).State = EntityState.Modified;
+                model.SaveChanges();
                 return RedirectToAction("ViewInviation");
             }else if (action.Equals("refuse"))
             {
                 invitation.status = -1;
-                dao.Entry(invitation).State = EntityState.Modified;
-                dao.SaveChanges();
+                model.Entry(invitation).State = EntityState.Modified;
+                model.SaveChanges();
                 return RedirectToAction("ViewInviation");
             }
             return RedirectToAction("ViewInviation");
@@ -44,9 +44,9 @@ namespace GroupMana.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mem = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
-                dao.Members.Remove(mem);
-                dao.SaveChanges();
+                var mem = model.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
+                model.Members.Remove(mem);
+                model.SaveChanges();
                 return Redirect("Home/Index");
             }
             return Redirect("Home/Index");

@@ -9,7 +9,7 @@ namespace GroupMana.Controllers
 {
     public class ProjectController : Controller
     {
-        Model dao = new Model();
+        Model model = new Model();
         // GET: Project
         public ActionResult AddProject()
         {
@@ -21,8 +21,8 @@ namespace GroupMana.Controllers
             Project project = new Project();
             project.projectName = projectname;
             project.description = description;
-            dao.Projects.Add(project);
-            dao.SaveChanges();
+            model.Projects.Add(project);
+            model.SaveChanges();
             return Redirect("Group");
         }
     }
