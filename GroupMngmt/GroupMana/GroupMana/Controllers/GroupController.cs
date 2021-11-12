@@ -43,7 +43,9 @@ namespace GroupMana.Controllers
         public ActionResult FindGroup()
         {
 
+
             return View(model.Groups.ToList());
+
         }
         [HttpPost]
         public ActionResult FindGroup(string searchname)
