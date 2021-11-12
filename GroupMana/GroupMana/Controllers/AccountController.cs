@@ -155,6 +155,39 @@ namespace GroupMana.Controllers
         }
         public ActionResult EditProfile()
         {
+            //  int userId = (int)Session["idUser"];
+            int userId = 1;
+            ViewBag.User  = dao.GetUserByuserid(userId);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditProfile(string fullname, string bio, DateTime dob, string email, int gender)
+        {
+           
+            //  int userId = (int)Session["idUser"];
+            int userId = 1;
+       
+            var x = model.Users.SingleOrDefault(b => b.userID ==userId);
+            if (fullname!=null)
+            {
+                x.fullname = fullname;
+            }
+            if (bio!=null)
+            {
+                x.bio = bio;
+            }
+            if (email!= null)
+            {
+                x.email = email;
+            }
+         
+
+
+            x.dob = dob;
+            x.gender = gender;
+            model.SaveChanges();
+
+            ViewBag.User = dao.GetUserByuserid(userId);
             return View();
         }
     }
