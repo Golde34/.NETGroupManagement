@@ -10,6 +10,7 @@ namespace GroupMana.Controllers
     public class ProjectController : Controller
     {
         Model dao = new Model();
+        DAO db = new DAO();
         // GET: Project
         public ActionResult AddProject()
         {
@@ -21,9 +22,13 @@ namespace GroupMana.Controllers
             Project project = new Project();
             project.projectName = projectname;
             project.description = description;
+            project.createdate = DateTime.Now;
+            project.groupId = (int)Session["groupId"];
+            project.status = true;
+            Group group = db.GetGroupsOfId((int)Session["groupId"]);
             dao.Projects.Add(project);
             dao.SaveChanges();
-            return Redirect("Group");
+            return RedirectToAction("ViewProjectOfuser", "Member", group);
         }
     }
 }
