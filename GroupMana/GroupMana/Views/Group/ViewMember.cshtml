@@ -1,5 +1,8 @@
 ﻿@using GroupMana.Models
 @model List<Member>
+    @{ 
+        var user = (User)ViewBag.User;
+    }
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,20 +216,22 @@
                                             <tr>
                                                 <th style="width:60%;">Member name</th>
                                                 <th style="width:20%;">Role</th>
-                                                <th style="width:20%;">Action</th>
+                                                <th style="width:20%;"></th>
+                                                <th style="width:20%;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var p in Model)
                                             {
-                                                <tr>
-                                                    <td>@p.User.fullname</td>
-                                                    <td>@p.Role.roleName</td>
-                                                    @if (@p.roleId != 1)
-                                                    {
-                                                        <td><a class="btn btn-danger" href="@Url.Action("RemoveMember","Group",new { member = p.userID })">Remove</a></td>
-                                                    }
-                                                </tr>
+                                            <tr>
+                                                <td>@p.User.fullname</td>
+                                                <td>@p.Role.roleName</td>
+                                                @if (@p.roleId != 1 &&  )
+                                                {
+                                                    <td><a class="btn btn-success" href="@Url.Action("UpdateMember","Group",new { member = p.userID })">Update</a></td>
+                                                    <td><a class="btn btn-danger" href="@Url.Action("RemoveMember","Group",new { member = p.userID })">Remove</a></td>
+                                                }
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>

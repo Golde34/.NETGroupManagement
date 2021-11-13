@@ -19,45 +19,50 @@ namespace GroupMana.Controllers
             ViewBag.Messages = "You can not leave this group because you are manager";
             int userId = (int)Session["idUser"];
 
-            List<Member> groups = dao.Members.Where(s => s.userID == userId && s.status==true).ToList();
+            List<Member> groups = dao.Members.Where(s => s.userID == userId && s.status==true && s.state==1).ToList();
             ViewBag.Invitations = groups;
             return View(groups);
         }
-        public ActionResult ViewProjectOfUser(string groupId)
+        public ActionResult CreateGroupId(string groupId)
         {
-            int userId = (int)Session["idUser"];
             int group = int.Parse(groupId);
             Session["groupId"] = group;
-            List<Project> groups = dao.Projects.Where( s => s.groupId==group).ToList();
+            return RedirectToAction("ViewProjectOfUser");
+        }
+        public ActionResult ViewProjectOfUser()
+        {
+            int userId = (int)Session["idUser"];
+            int group = (int)Session["groupId"];
+            List<Project> groups = dao.Projects.Where( s => s.groupId==group && s.status==true).ToList();
             ViewBag.GroupName = dao.Groups.SingleOrDefault(b => b.groupId == group).groupName;
+            ViewBag.Member = dao.Members.Where(s => s.userID == userId && s.groupId == group).FirstOrDefault();
             return View(groups);
         }
         public ActionResult ViewInviation()
         {
             int userId = (int)Session["idUser"];
-            var invitation = dao.Members.Where(s => s.userID == userId && s.state == 0).ToList();
+            var invitation = dao.Members.Where(s => s.userID == userId && s.state == 0 && s.status==true).ToList();
             ViewBag.Invitations = invitation;
             return View(invitation);
         }
-        [HttpPost]
-        public ActionResult HandleInvitation(string action, int groupId)
+        public ActionResult AcceptInvitation(string group)
         {
             int userId = (int)Session["idUser"];
+            int groupId = Convert.ToInt32(group);
             var invitation = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
-            if (action.Equals("accept"))
-            {
-                invitation.status = true;
-                dao.Entry(invitation).State = EntityState.Modified;
-                dao.SaveChanges();
-                return RedirectToAction("ViewInviation");
-            }
-            else if (action.Equals("refuse"))
-            {
-                invitation.status = false;
-                dao.Entry(invitation).State = EntityState.Modified;
-                dao.SaveChanges();
-                return RedirectToAction("ViewInviation");
-            }
+            invitation.state = 1;
+            dao.Entry(invitation).State = EntityState.Modified;
+            dao.SaveChanges();
+            return RedirectToAction("ViewInviation");
+        }
+        public ActionResult RefuseInvitation(string group)
+        {
+            int userId = (int)Session["idUser"];
+            int groupId = Convert.ToInt32(group);
+            var invitation = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
+            invitation.status = false;
+            dao.Entry(invitation).State = EntityState.Modified;
+            dao.SaveChanges();
             return RedirectToAction("ViewInviation");
         }
         public ActionResult LeaveGroup(int groupId)
@@ -71,5 +76,6 @@ namespace GroupMana.Controllers
             dao.SaveChanges();
             return RedirectToAction("ViewGroupsOfUser");
         }
+
     }
 }

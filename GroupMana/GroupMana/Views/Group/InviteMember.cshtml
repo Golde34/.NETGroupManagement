@@ -304,28 +304,6 @@
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('select').selectize({
-                sortField: 'text'
-            });
-        });
-        function search() {
-            var search = document.getElementById("search").value;
-            $.ajax({
-                type="GET",
-                url: @Url.Action("SearchUser","Group"),
-                data: { search: search },
-                success: function (respone) {
-                    var text = document.getElementById("search");
-                    text.innerHTML = respone;
-                },
-                error: function (x) {
-
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>

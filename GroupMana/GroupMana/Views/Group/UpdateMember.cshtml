@@ -1,9 +1,11 @@
 ﻿@using GroupMana.Models
-@model List<Issue>
-@{ 
-    var ux = (Member)ViewBag.Member;
+@{
+    var member = (Member)ViewBag.Member;
 }
-
+@{
+    Model model = new Model();
+    var roles = model.Roles.ToList();
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +35,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
+        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -52,17 +55,19 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Groups</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
+                        <a class="collapse-item active" href="@Url.Action("ViewMember","Group")">View members</a>
+                        <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>
                 </div>
             </li>
@@ -83,21 +88,6 @@
                 </div>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseIssue"
-                   aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Issues</span>
-                </a>
-                <div id="collapseIssue" class="collapse show" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="@Url.Action("Index","Issue")">View Issue</a>
-                        <a class="collapse-item" href="@Url.Action("AddIssue","Issue")">Add Issue</a>
-                    </div>
-                </div>
-            </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("ViewInviation","Member")">
                     <i class="fas fa-fw fa-table"></i>
@@ -110,45 +100,45 @@
 
             <!-- Heading -->
             @*<div class="sidebar-heading">
-            Addons
-        </div>*@
+                    Addons
+                </div>*@
 
             <!-- Nav Item - Pages Collapse Menu -->
             @*<li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>*@
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Pages</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Login Screens:</h6>
+                            <a class="collapse-item" href="login.html">Login</a>
+                            <a class="collapse-item" href="register.html">Register</a>
+                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Other Pages:</h6>
+                            <a class="collapse-item" href="404.html">404 Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a>
+                        </div>
+                    </div>
+                </li>*@
 
             <!-- Nav Item - Charts -->
             @*<li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span>
-            </a>
-        </li>*@
+                    <a class="nav-link" href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Charts</span>
+                    </a>
+                </li>*@
 
             <!-- Nav Item - Tables -->
             @*<li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span>
-            </a>
-        </li>*@
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Tables</span>
+                    </a>
+                </li>*@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -197,7 +187,7 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="@Url.Action("Logout","Account")" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("Logount","Account")" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -212,7 +202,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Issues</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Groups</h1>
 
                     <div class="row">
 
@@ -221,107 +211,82 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Issues</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">View Member</h6>
                                 </div>
                                 <div class="card-body">
-                                    <!-- Circle Buttons (Default) -->
-                                    <div class="table-responsive">
-                                        <table style="width: 100%;" class="table text-center">
-                                            <thead class="text-uppercase bg-gray-200">
-                                                <tr>
-                                                    <th style="width: 10%">Issue Name</th>
-                                                    <th style="width: 20%">Start Date</th>
-                                                    <th style="width: 20%">Due Date</th>
-                                                    <th style="width: 10%">Create</th>
-                                                    <th style="width: 10%">Assignee</th>
-                                                    <th style="width: 10%">State</th>
-                                                    <th style="width: 10%">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    Model model = new Model();
-                                                }
-                                                @foreach (var item in Model)
-                                                {
-                                                   
-                                                  
-                                                <tr>
-
-                                                    <td> @item.title </td>
-                                                    <td>@item.startDate</td>
-                                                    <td>@item.dueDate</td>
-                                                    @{
-
-                                                        User user = model.Users.Find(item.creator);
-                                                        User assignee = model.Users.Find(item.assignee);
+                                    @using (Html.BeginForm("UpdateMemberRole", "Group", FormMethod.Post))
+                                    {
+                                        <table class="table">
+                                            <tr>
+                                                <td style="width: 30%;">User Name</td>
+                                                <td style="width: 70%;">
+                                                    @{ 
+                                                        var user = model.Users.FirstOrDefault(b => b.userID == member.userID);
                                                     }
-                                                    <td>@user.fullname</td>
-                                                    <td>@assignee.fullname</td>
-                                                    @if (item.state == 0)
-                                                    {
-                                                        <td>Pending</td>
-                                                    }
-                                                    else if (item.state == 1)
-                                                    {
-                                                        <td>Doing</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>Done</td>
-                                                    }
-                                                    <td>
-                                                        <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })" >Edit</a>
-                                                    </td>
-                                                    @if (ux.roleId == 1 && item.status == true)
-                                                    {
-                                                        <td>
-                                                            <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
-                                                        </td>
-
-
-                                                    }
-                                                    @if (ux.roleId == 1 && item.status == false)
-                                                    {
-
-                                                        <td>
-                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
-                                                        </td>
-
-                                                    }
-
-
-                                                </tr>
-                                                }
-                                            </tbody>
+                                                    <input type="hidden" name="userid" value="@member.userID">
+                                                    <input type="text" name="username" value="@user.fullname" class="form-control" readonly />
+                                                    @*<div class="invalid-feedback">
+                            Not blank and no space at beginning or ending
+                        </div>*@
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Role</td>
+                                                <td>
+                                                    <select name="role">
+                                                        @foreach (var item in roles)
+                                                        {
+                                                            if (item.roleId == member.roleId)
+                                                            {
+                                                                <option value="@item.roleId" selected>@item.roleName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                            <option value="@item.roleId">@item.roleName</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><button type="submit" class=" btn btn-primary">Update</button></td>
+                                            </tr>
                                         </table>
-                                    </div>
-
+                                    }
                                 </div>
                             </div>
+
+
                         </div>
+
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>LilLab&copy; 2021</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
             <!-- End of Footer -->
+
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">

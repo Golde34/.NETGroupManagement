@@ -171,7 +171,7 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="@Url.Action("Logount","Account")" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("Logout","Account")" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -211,7 +211,7 @@
                                             @foreach (var p in Model)
                                             {
                                                 <tr>
-                                                    <td> <a href="@Url.Action("ViewProjectOfUser","Member",new { groupId = p.groupId })">@p.Group.groupName </a></td>
+                                                    <td> <a href="@Url.Action("CreateGroupId","Member",new { groupId = p.groupId })">@p.Group.groupName </a></td>
                                                     <td>@p.Role.roleName</td>
                                                     <td>
                                                         @if (p.roleId != 1)
