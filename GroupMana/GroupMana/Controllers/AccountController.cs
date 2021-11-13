@@ -157,6 +157,31 @@ namespace GroupMana.Controllers
                 }
             }
         }
+
+        public ActionResult UserProfile()
+        {
+            //  int userId = (int)Session["idUser"];
+            int userId = 1;
+            var listgroup = dao.GetGroupsOfUser(userId);
+            ViewBag.User = dao.GetUserByuserid(userId);
+            return View(listgroup);
+        }
+
+        //[HttpPost]
+
+        //public ActionResult UserProfile(int userid)
+        //{
+
+        //    //  int userId = (int)Session["idUser"];
+        //    int userId = 1;
+
+        //    var x = model.Users.SingleOrDefault(b => b.userID == userId);
+
+        //    List<Group> listgroup = dao.GetGroupsOfUser(userId).ToList();
+        //    ViewBag.User = dao.GetUserByuserid(userId);
+        //    return View(listgroup);
+        //}
+
         public ActionResult EditProfile()
         {
             //  int userId = (int)Session["idUser"];

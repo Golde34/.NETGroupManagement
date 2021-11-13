@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,34 +75,31 @@ namespace GroupMana.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult InviteMember(string email, int role, int group)
+        public ActionResult InviteMember(string username, int role)
         {
-            if (ModelState.IsValid)
+            int groupId = (int)Session["groupId"];
+            bool isExist = false;
+            User user = dao.Users.SqlQuery($"select * from Users where username = '{username}'").First();
+            var groups = from g in dao.Groups
+                         join mem in dao.Members on g.groupId equals mem.groupId
+                         where mem.userID == user.userID
+                         select g;
+            foreach (Group item in groups)
             {
-                bool isExist = false;
-                User user = (User)dao.Users.Where(s => s.email == email);
-                var groups = from g in dao.Groups
-                             join mem in dao.Members on g.groupId equals mem.groupId
-                             where mem.userID == user.userID
-                             select g;
-                foreach (Group item in groups)
+                if (item.groupId == item.groupId)
                 {
-                    if (item.groupId == item.groupId)
-                    {
-                        isExist = true;
-                        break;
-                    }
+                    isExist = true;
+                    break;
                 }
-                if (isExist)
-                {
-                    ViewBag.message = "Member already in group";
-                    return View();
-                }
-                Member member = new Member { groupId = group, roleId = role, userID = user.userID, status =true };
-                dao.Members.Add(member);
-                dao.SaveChanges();
-                return Redirect("Home/Index");
             }
+            if (isExist)
+            {
+                ViewBag.message = "Member already in group";
+                return View();
+            }
+            Member member = new Member { groupId = groupId, roleId = role, userID = user.userID, status = false, state = 0 };
+            dao.Members.Add(member);
+            dao.SaveChanges();
             return View();
         }
         [HttpPost]
@@ -110,7 +108,8 @@ namespace GroupMana.Controllers
             if (ModelState.IsValid)
             {
                 var mem = dao.Members.Where(s => s.userID == member && s.groupId == group).First();
-                dao.Members.Remove(mem);
+                mem.status = false;
+                dao.Entry(mem).State = EntityState.Modified;
                 dao.SaveChanges();
                 return RedirectToAction("ViewMember");
             }

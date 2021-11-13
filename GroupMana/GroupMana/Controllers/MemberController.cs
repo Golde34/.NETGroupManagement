@@ -15,8 +15,10 @@ namespace GroupMana.Controllers
         // GET: Member
         public ActionResult ViewGroupsOfUser()
         {
-            //int userId = (int)Session["idUser"];
-            int userId = 1;
+
+            ViewBag.Messages = "You can not leave this group because you are manager";
+            int userId = (int)Session["idUser"];
+
             List<Member> groups = dao.Members.Where(s => s.userID == userId && s.status==true).ToList();
             ViewBag.Invitations = groups;
             return View(groups);
@@ -25,7 +27,8 @@ namespace GroupMana.Controllers
         {
             //int userId = (int)Session["idUser"];
             int userId = 1;
-            int group = int.Parse(groupId); 
+            int group = int.Parse(groupId);
+            Session["groupId"] = group;
             List<Project> groups = dao.Projects.Where( s => s.groupId==group).ToList();
             ViewBag.GroupName = dao.Groups.SingleOrDefault(b => b.groupId == group).groupName;
             return View(groups);
