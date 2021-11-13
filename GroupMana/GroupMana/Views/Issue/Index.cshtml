@@ -385,19 +385,18 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Issues</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p>
-                                        Use Font Awesome Icons (included with this theme package) along with the circle
-                                        buttons as shown in the examples below!
-                                    </p>
                                     <!-- Circle Buttons (Default) -->
                                     <div class="table-responsive">
                                         <table style="width: 100%;" class="text-center">
                                             <thead class="text-uppercase bg-gray-200">
                                                 <tr>
-                                                    <th style="width: 25%">Issue Name</th>
-                                                    <th style="width: 25%">Start Date</th>
-                                                    <th style="width: 25%">Due Date</th>
-                                                    <th style="width: 25%">Create</th>
+                                                    <th style="width: 10%">Issue Name</th>
+                                                    <th style="width: 20%">Start Date</th>
+                                                    <th style="width: 20%">Due Date</th>
+                                                    <th style="width: 10%">Create</th>
+                                                    <th style="width: 10%">Assignee</th>
+                                                    <th style="width: 10%">State</th>
+                                                    <th style="width: 10%">Action</th>
 
                                                 </tr>
                                             </thead>
@@ -417,27 +416,41 @@
                                                     @{
 
                                                         User user = model.Users.Find(item.creator);
+                                                        User assignee = model.Users.Find(item.assignee);
                                                     }
                                                     <td>@user.fullname</td>
+                                                    <td>@assignee.fullname</td>
+                                                    @if (item.state == 0)
+                                                    {
+                                                        <td>Pending</td>
+                                                    }
+                                                    else if (item.state == 1)
+                                                    {
+                                                        <td>Doing</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>Done</td>
+                                                    }
                                                     @if (ux.roleId == 1 && item.status == true)
                                                     {
-                                                <td>
-                                                    <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
-                                                </td>
+                                                        <td>
+                                                            <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
+                                                        </td>
 
 
-                                                            }
-                                                            @if (ux.roleId == 1 && item.status == false)
-                                                            {
+                                                    }
+                                                    @if (ux.roleId == 1 && item.status == false)
+                                                    {
 
-                                                <td>
-                                                    <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
-                                                </td>
+                                                        <td>
+                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
+                                                        </td>
 
-                                                                }
+                                                    }
 
 
-                                                        </tr>
+                                                </tr>
                                                 }
 
                                             </tbody>
@@ -463,7 +476,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>LilLab&copy; 2021</span>
                     </div>
                 </div>
             </footer>
