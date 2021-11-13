@@ -205,8 +205,8 @@
                                                 <td>@p.Group.groupName</td>
                                                 <td>@p.Role.roleName</td>
                                                 <td style="white-space:nowrap">
-                                                    <button type="submit" class="btn btn-success">Accept</button>
-                                                    <button type="submit" class="btn btn-danger">Refuse</button>
+                                                    <a class="btn btn-success" href="@Url.Action("AcceptInvitation","Member",new {  group = p.groupId })">Accept</a>
+                                                    <a class="btn btn-danger" href="@Url.Action("RefuseInvitation","Member",new {  group = p.groupId })">Refuse</a>
                                                 </td>
                                             </tr>
                                             }

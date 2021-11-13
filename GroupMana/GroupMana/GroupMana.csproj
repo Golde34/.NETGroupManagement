@@ -197,9 +197,10 @@
     <Content Include="Views\Project\AddProject.cshtml" />
     <Content Include="Views\Issue\EditIssue.cshtml" />
     <Content Include="Views\Issue\Index.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Member\ViewGroupsOfUser.cshtml" />
     <Content Include="Views\Member\ViewProjectOfUser.cshtml" />
-    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

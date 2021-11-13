@@ -270,6 +270,9 @@
                                                     {
                                                         <td>Done</td>
                                                     }
+                                                    <td>
+                                                        <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })" >Edit</a>
+                                                    </td>
                                                     @if (ux.roleId == 1 && item.status == true)
                                                     {
                                                         <td>

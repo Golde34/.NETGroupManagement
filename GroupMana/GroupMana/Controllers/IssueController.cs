@@ -1,4 +1,6 @@
-﻿using GroupMana.Models;
+﻿
+
+using GroupMana.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace GroupMana.Controllers
         {
 
             int userId = (int)Session["idUser"];
-            int projectid = (int) Session["projectId"];
+            int projectid = (int)Session["projectId"];
 
             ViewBag.Member = dao.GetMemberByuserid(userId);
             var x = dao.GetIssueOfProject(projectid);
@@ -38,8 +40,8 @@ namespace GroupMana.Controllers
         {
             //int userId = (int)Session["idUser"];
             int isssueid = int.Parse(id);
-          
-        
+
+
             var issue = model.Issues.SingleOrDefault(b => b.issueId == isssueid);
             issue.status = false;
             model.SaveChanges();
@@ -47,7 +49,7 @@ namespace GroupMana.Controllers
             return RedirectToAction("Index", "Issue");
         }
 
-      
+
 
         public ActionResult Restore(string id)
         {
@@ -61,16 +63,35 @@ namespace GroupMana.Controllers
             return RedirectToAction("Index", "Issue");
         }
 
-        public ActionResult EditIssue()
+        public ActionResult EditIssue(string iid)
         {
+            int id = int.Parse(iid);
+            ViewBag.Issue = model.Issues.FirstOrDefault(i => i.issueId == id);
             return View();
         }
 
         [HttpPost]
 
-        public ActionResult EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content, int state)
+        public ActionResult EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content)
         {
-            dao.EditIssue(issueid, title, duedate, startdate, description, content, state);
+            var issue = model.Issues.SingleOrDefault(b => b.issueId == issueid);
+            if (title != null)
+            {
+                issue.title = title;
+            }
+            if (description != null)
+            {
+                issue.description = description;
+            }
+            if (content != null)
+            {
+                issue.content = content;
+            }
+            issue.dueDate = duedate;
+            issue.startDate = startdate;
+            model.SaveChanges();
+
+            ViewBag.Issue = model.Issues.Find(issueid);
             ViewBag.mess = "Update succesfully!";
             return View();
         }

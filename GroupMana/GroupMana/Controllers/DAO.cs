@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -258,7 +259,7 @@ namespace GroupMana.Controllers
         {
             try
             {
-                var issues = from issue in db.Issues where (issue.projectId == projectId ) select issue;
+                var issues = from issue in db.Issues where (issue.projectId == projectId) select issue;
                 return issues.ToList();
             }
             catch (Exception ex)
@@ -282,14 +283,14 @@ namespace GroupMana.Controllers
             }
         }
 
-        public void EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content, int state)
+        public void EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content)
         {
             try
             {
                 db.Database.ExecuteSqlCommand($"update Issues set title = '{title}'," +
                     $"dueDate = '{duedate}', startDate = '{startdate}'," +
-                    $"description = '{description}', content = '{content}'," +
-                    $"state = '{state}' where issueId = '{issueid}'");
+                    $"description = '{description}', content = '{content}'" +
+                    $"where issueId = '{issueid}'");
                 db.SaveChanges();
             }
             catch (Exception ex)

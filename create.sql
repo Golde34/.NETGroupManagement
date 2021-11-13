@@ -64,9 +64,11 @@ startDate datetime,
 content varchar(255),
 [state] int,
 creator int,
+assignee int,
 projectId int,
 [status] bit,
-foreign key(projectId) references [Projects](projectId)
+foreign key(projectId) references [Projects](projectId),
+foreign key(assignee) references [Users](userID)
 );
 create table MemberIssues(
 userId int,
@@ -82,3 +84,52 @@ groupId int,
 foreign key(userId) references [Users](userId),
 foreign key(groupId) references [Groups](groupId)
 );
+
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('nam','123','Hai Nam', 'namnhh@gmail.com','',1,'I am lord','1','1')
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('viet','123','Dong Viet', 'vietnddm@gmail.com','',1,'I am lord','1','1')
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('hieu','123','Trung Hieu', 'hieultm@gmail.com','',1,'I am lord','1','1')
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('thinh','123','Duc Thinh', 'thinhvd@gmail.com','',1,'I am lord','1','1')
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('quang','123','Minh Quang', 'quangkm@gmail.com','',1,'I am lord','1','1')
+INSERT INTO Users(username,password,fullname,email,dob,gender,bio,isAdmin,status) VALUES ('user1','1','User Test', 'test@gmail.com','',1,'Testing','0','1')
+
+
+INSERT INTO Roles(roleName,status) VALUES ('Project Manager', 1)
+INSERT INTO Roles(roleName,status) VALUES ('Leader', 1)
+INSERT INTO Roles(roleName,status) VALUES ('Developer', 1)
+INSERT INTO Roles(roleName,status) VALUES ('Tester', 1)
+INSERT INTO Roles(roleName,status) VALUES ('BA', 1)
+INSERT INTO Roles(roleName,status) VALUES ('QA', 1)
+INSERT INTO Roles(roleName,status) VALUES ('Client', 1)
+
+
+INSERT INTO Groups(groupName,description,purpose,state,status) VALUES ( 'Bmazon', 'Team Bmazon', 'Develop project with team Bmazon', 1, 1)
+INSERT INTO Groups(groupName,description,purpose,state,status) VALUES ( 'LilLab', 'Team LilLab', 'Develop project with team LilLab', 1, 1)
+
+
+INSERT INTO Members(userID,groupId,roleId,state,status) VALUES (1,1,1,1,1)
+INSERT INTO Members(userID,groupId,roleId,state,status) VALUES (2,1,2,1,1)
+INSERT INTO Members(userID,groupId,roleId,state,status) VALUES (3,2,1,1,1)
+INSERT INTO Members(userID,groupId,roleId,state,status) VALUES (4,1,3,1,1)
+INSERT INTO Members(userID,groupId,roleId,state,status) VALUES (5,2,2,1,1)
+
+
+
+INSERT INTO Projects(projectName,description,createdate,groupId,status) VALUES ('Ecommerce','An ecommerce website for technology buyer and seller',GETDATE(),1,1)
+INSERT INTO Projects(projectName,description,createdate,groupId,status) VALUES ('B-Ecommerce','An backup ecommerce website for technology buyer and seller',GETDATE(),1,1)
+INSERT INTO Projects(projectName,description,createdate,groupId,status) VALUES ('LilLab','An LilLab website for group management',GETDATE(),1,2)
+INSERT INTO Projects(projectName,description,createdate,groupId,status) VALUES ('B-LilLab','An backup LilLab website for group management',GETDATE(),1,2)
+
+
+
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 1',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is an error about NullPointerException at line 1311 at Controller x', 'Should be fixed in 7 days after release issues',1,1,2,1,1)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 2',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is 2 errors about ArithmethicException at line 2001 at Controller y', 'Should be fixed in 7 days after release issues',1,1,2,1,1)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 1',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is an error about NullPointerException at line 1311 at Controller x', 'Should be fixed in 7 days after release issues',1,1,2,1,2)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 2',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is 2 errors about ArithmethicException at line 2001 at Controller y', 'Should be fixed in 7 days after release issues',1,1,2,1,2)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 1',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is an error about NullPointerException at line 1311 at Controller x', 'Should be fixed in 7 days after release issues',1,1,2,1,3)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 2',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is 2 errors about ArithmethicException at line 2001 at Controller y', 'Should be fixed in 7 days after release issues',1,1,2,1,3)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 1',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is an error about NullPointerException at line 1311 at Controller x', 'Should be fixed in 7 days after release issues',1,1,2,1,4)
+INSERT INTO Issues(title,dueDate,startDate,description,content,state,creator,assignee,projectId,status) VALUES ('Exception 2',GETDATE(), DateAdd(DD,-7,GETDATE() ),'There is 2 errors about ArithmethicException at line 2001 at Controller y', 'Should be fixed in 7 days after release issues',1,1,2,1,4)
+
+
+
+

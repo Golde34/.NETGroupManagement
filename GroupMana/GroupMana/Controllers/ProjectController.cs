@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,6 +30,16 @@ namespace GroupMana.Controllers
             dao.Projects.Add(project);
             dao.SaveChanges();
             return RedirectToAction("ViewProjectOfuser", "Member", group);
+        }
+        public ActionResult RemoveProject(string projectId)
+        {
+            int groupId = (int)Session["groupId"];
+            int project = Convert.ToInt32(projectId);
+            Project pro = dao.Projects.Where(s => s.projectId == project).FirstOrDefault();
+            pro.status = false;
+            dao.Entry(pro).State = EntityState.Modified;
+            dao.SaveChanges();
+            return RedirectToAction("ViewProjectOfUser", "Member");
         }
     }
 }

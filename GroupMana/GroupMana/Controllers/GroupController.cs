@@ -96,8 +96,8 @@ namespace GroupMana.Controllers
             User x = dao.Users.SingleOrDefault(b => b.userID == id);
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
-            var members = dao.Members.Where(s => s.groupId == 1&& s.status==true).ToList();
-           
+            int groupId = (int)Session["groupId"];
+            var members = dao.Members.Where(s => s.groupId == groupId && s.status==true).ToList();
             ViewBag.members = members;
             return View(members);
         }
@@ -113,24 +113,17 @@ namespace GroupMana.Controllers
             int groupId = (int)Session["groupId"];
             bool isExist = false;
             User user = dao.Users.SqlQuery($"select * from Users where username = '{username}'").First();
-            var groups = from g in dao.Groups
-                         join mem in dao.Members on g.groupId equals mem.groupId
-                         where mem.userID == user.userID
-                         select g;
-            foreach (Group item in groups)
+            var groups = dao.Members.Where(s => s.groupId == groupId && s.userID==user.userID && s.status==true).FirstOrDefault();
+            if (groups != null)
             {
-                if (item.groupId == item.groupId)
-                {
-                    isExist = true;
-                    break;
-                }
+                isExist = true;
             }
             if (isExist)
             {
                 ViewBag.message = "Member already in group";
                 return View();
             }
-            Member member = new Member { groupId = groupId, roleId = role, userID = user.userID, status = false, state = 0 };
+            Member member = new Member { groupId = groupId, roleId = role, userID = user.userID, status = true, state = 0 };
             dao.Members.Add(member);
             dao.SaveChanges();
             return View();
