@@ -5,3 +5,5 @@ groupMngmt/GroupMngmt/bin/
 groupMngmt/GroupMngmt/obj/
 GroupMngmt/GroupMngmt/Web.Release.config
 GroupMngmt/GroupMngmt/Web.Debug.config
+*.dll
+*.exe
