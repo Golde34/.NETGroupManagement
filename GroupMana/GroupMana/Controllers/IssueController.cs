@@ -14,7 +14,41 @@ namespace GroupMana.Controllers
 
         public ActionResult Index()
         {
-            return View();
+
+            //int userId = (int)Session["idUser"];
+            int userId = 1;
+            ViewBag.Member = dao.GetMemberByuserid(userId);
+            var x = dao.GetIssueOfProject(1);
+            return View(x);
+        }
+
+        
+
+        public ActionResult Delete(string id)
+        {
+            //int userId = (int)Session["idUser"];
+            int isssueid = int.Parse(id);
+          
+        
+            var issue = model.Issues.SingleOrDefault(b => b.issueId == isssueid);
+            issue.status = false;
+            model.SaveChanges();
+
+            return RedirectToAction("Index", "Issue");
+        }
+
+      
+
+        public ActionResult Restore(string id)
+        {
+            //int userId = (int)Session["idUser"];
+            int isssueid = int.Parse(id);
+
+            var issue = model.Issues.SingleOrDefault(b => b.issueId == isssueid);
+            issue.status = true;
+            model.SaveChanges();
+
+            return RedirectToAction("Index", "Issue");
         }
 
         public ActionResult EditIssue()

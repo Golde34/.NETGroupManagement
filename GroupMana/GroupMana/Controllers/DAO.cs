@@ -227,7 +227,7 @@ namespace GroupMana.Controllers
         {
             try
             {
-                var issues = from issue in db.Issues where issue.projectId == projectId select issue;
+                var issues = from issue in db.Issues where (issue.projectId == projectId ) select issue;
                 return issues.ToList();
             }
             catch (Exception ex)
@@ -274,6 +274,23 @@ namespace GroupMana.Controllers
         {
             db.Roles.Add(new Role { roleName = roleName, status = true });
             db.SaveChanges();
+        }
+        #endregion
+
+        //Member DAO
+        #region
+        public Member GetMemberByuserid(int id)
+        {
+            try
+            {
+                Member x = db.Members.SqlQuery($"select * from Members where userID = {id}").First();
+                return x;
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return null;
+            }
         }
         #endregion
     }
