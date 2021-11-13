@@ -96,13 +96,8 @@ namespace GroupMana.Controllers
             User x = dao.Users.SingleOrDefault(b => b.userID == id);
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
-<<<<<<< Updated upstream
-            var members = dao.Members.Where(s => s.groupId == 1&& s.status==true).ToList();
-           
-=======
             int groupId = (int)Session["groupId"];
             var members = dao.Members.Where(s => s.groupId == groupId && s.status==true).ToList();
->>>>>>> Stashed changes
             ViewBag.members = members;
             return View(members);
         }
