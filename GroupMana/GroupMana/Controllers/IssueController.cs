@@ -12,18 +12,27 @@ namespace GroupMana.Controllers
         Model model = new Model();
         DAO dao = new DAO();
 
-        public ActionResult Index(string g)
+        public ActionResult Check(string g)
         {
 
             int userId = (int)Session["idUser"];
-            int projectid = Int32.Parse(g);
+            int projectid = int.Parse(g);
+            Session["projectId"] = projectid;
+
+            return RedirectToAction("Index", "Issue");
+        }
+        public ActionResult Index()
+        {
+
+            int userId = (int)Session["idUser"];
+            int projectid = (int) Session["projectId"];
 
             ViewBag.Member = dao.GetMemberByuserid(userId);
             var x = dao.GetIssueOfProject(projectid);
             return View(x);
         }
 
-        
+
 
         public ActionResult Delete(string id)
         {
