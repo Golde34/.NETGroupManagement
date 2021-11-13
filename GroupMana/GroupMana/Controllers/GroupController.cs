@@ -63,17 +63,14 @@ namespace GroupMana.Controllers
         {
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
-            return View();
-        }
-        [HttpPost]
-        public ActionResult ViewMember(int groupId)
-        {
-            var members = dao.Members.Where(s => s.groupId == groupId).ToList();
+            var members = dao.Members.Where(s => s.groupId == 1).ToList();
             ViewBag.members = members;
-            return View();
+            return View(members);
         }
         public ActionResult InviteMember()
         {
+            var query = dao.Roles.Select(m => new { m.roleId, m.roleName });
+            ViewBag.Roles = new SelectList(query.AsEnumerable(), "roleId", "roleName");
             return View();
         }
         [HttpPost]

@@ -254,7 +254,7 @@
                             </div>
                         </li>
 
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -306,28 +306,28 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">View Member</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">View Your Group</h6>
                                 </div>
                                 <div class="card-body">
+                                    <h6 class="m-0 font-weight-bold text-danger">@ViewBag.Messages</h6>
                                     <table class="table table-bordered text-center" style="width:100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width:60%;">Member name</th>
+                                                <th style="width:60%;">Group name</th>
                                                 <th style="width:20%;">Role</th>
                                                 <th style="width:20%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach(var p in Model) 
-                                            { 
-                                            <tr>
-                                                <td>@p.User.fullname</td>
-                                                <td>@p.Role.roleName</td>
-                                                @if (@p.roleId != 1)
-                                                {
-                                                    <td><button type="submit" class="btn btn-danger">Remove</button></td>
-                                                }
-                                            </tr>
+                                            @foreach (var p in Model)
+                                            {
+                                                <tr>
+                                                    <td>@p.Group.groupName</td>
+                                                    <td>@p.Role.roleName</td>
+                                                    <td>
+                                                        <a class="btn btn-danger" href="@Url.Action("LeaveGroup","Member",new { groupId = p.groupId })" onclick="return confirm('Are you sure?');">Leave</a>
+                                                    </td>
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>
