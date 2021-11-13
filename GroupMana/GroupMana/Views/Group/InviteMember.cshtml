@@ -258,7 +258,7 @@
                             </div>
                         </li>
 
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -315,34 +315,34 @@
                                 <div class="card-body">
                                     @using (Html.BeginForm("InviteMember", "Group", FormMethod.Post))
                                     {
-                                    <table class="table">
-                                        <tr>
-                                            <td style="width: 30%;">Email</td>
-                                            <td style="width: 70%;">
-                                                @Html.TextBoxFor(m => m.email, "", new { @class = "form-control", @placeholder = "Email of user " })
-                                                @*<div class="invalid-feedback">
-                                                    Not blank and no space at beginning or ending
-                                                </div>*@
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Role</td>
-                                            <td>
-                                                <select>
-                                                    @foreach(var item in roles) 
-                                                    { 
-                                                        <option value="@item.roleId">@item.roleName</option>
-                                                    }
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><button type="submit" class=" btn btn-primary">Invite</button></td>
-                                        </tr>
+                                        <table class="table">
+                                            <tr>
+                                                <td style="width: 30%;">User Name</td>
+                                                <td style="width: 70%;">
+                                                    @Html.TextBoxFor(m => m.username, "", new { @class = "form-control", @placeholder = "User name to invite " })
+                                                    @*<div class="invalid-feedback">
+                                                            Not blank and no space at beginning or ending
+                                                        </div>*@
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Role</td>
+                                                <td>
+                                                    <select name="role">
+                                                        @foreach (var item in roles)
+                                                        {
+                                                            <option value="@item.roleId">@item.roleName</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><button type="submit" class=" btn btn-primary">Invite</button></td>
+                                            </tr>
                                         </table>
-                                        }
-</div>
+                                    }
+                                </div>
                             </div>
 
 
@@ -405,7 +405,29 @@
     <script src="~/Scripts/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="~/Scripts/sb-admin-2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+        function search() {
+            var search = document.getElementById("search").value;
+            $.ajax({
+                type="GET",
+                url: @Url.Action("SearchUser","Group"),
+                data: { search: search },
+                success: function (respone) {
+                    var text = document.getElementById("search");
+                    text.innerHTML = respone;
+                },
+                error: function (x) {
 
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

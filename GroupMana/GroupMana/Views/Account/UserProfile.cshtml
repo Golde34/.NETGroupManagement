@@ -1,0 +1,280 @@
+﻿@using GroupMana.Models
+@model List<Group>
+@{
+
+    User user = ViewBag.User;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserProfile</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Body resources-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="${contextPath}/css/profile.css">
+    <style>
+        .cover {
+            background-color: black;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 230px;
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .row .first-right-comment {
+            height: 25px;
+        }
+
+        .profile-head {
+            transform: translateY(5rem)
+        }
+
+        body {
+            background: #654ea3;
+            background: linear-gradient(to right, #e96443, #904e95);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font: 600 'Open Sans',sans-serif;
+        }
+
+        .profilepic {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .profilepic:hover .profilepic__content {
+                opacity: 1;
+            }
+
+            .profilepic:hover .profilepic__image {
+                opacity: .5;
+            }
+
+        .profilepic__image {
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity .2s ease-in-out;
+        }
+
+        .profilepic__content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            opacity: 0;
+            transition: opacity .2s ease-in-out;
+        }
+
+        .profilepic__icon {
+            color: white;
+            padding-bottom: 8px;
+        }
+
+        .fas {
+            font-size: 20px;
+        }
+
+        .profilepic__text {
+            text-transform: uppercase;
+            font-size: 12px;
+            width: 50%;
+            text-align: center;
+            color: white;
+        }
+
+        .icon-background {
+            position: relative;
+            left: 96%;
+            bottom: 20%;
+        }
+
+        .left-component {
+            border: 1px solid #D5DBDB;
+            background-color: #F5F5F5;
+            box-shadow: 1px 2px 5px grey;
+        }
+
+        .right-component {
+            border: 1px solid #D5DBDB;
+            box-shadow: 1px 2px 5px grey;
+        }
+
+        .reviews-counter {
+            font-size: 13px;
+        }
+
+            .reviews-counter span {
+                vertical-align: -2px;
+            }
+
+        .rate {
+            float: left;
+            padding: 0 10px 0 0;
+        }
+
+            .rate:not(:checked) > input {
+                position: absolute;
+                top: -9999px;
+            }
+
+            .rate:not(:checked) > label {
+                float: right;
+                width: 18px;
+                overflow: hidden;
+                white-space: nowrap;
+                cursor: pointer;
+                font-size: 21px;
+                color: #ccc;
+                margin-bottom: 0;
+                line-height: 21px;
+            }
+
+                .rate:not(:checked) > label:before {
+                    content: '\2605';
+                }
+
+        .content {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            font-size: 60px;
+            color: white;
+            overflow: hidden;
+        }
+
+        .box p {
+            font-family: 'Forum', cursive;
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            font-variant: small-caps;
+        }
+
+        .box a {
+            font-size: 30px;
+            display: block;
+            text-align: center;
+            padding: 10px 10px 0px 10px;
+            text-decoration: none;
+            color: #cb0c9f;
+            cursor: pointer;
+        }
+
+        .overlay {
+            opacity: 0;
+        }
+
+        .box:hover img {
+            opacity: 0.2;
+        }
+
+        .box:hover .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="row py-5 px-4">
+        <div class="col-md-10 mx-auto">
+            <!-- Profile widget -->
+            <div class="bg-white shadow rounded overflow-hidden" style="width: 800px; margin: auto;">
+                <!--Avatar-->
+                @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "form-userprofile" }))
+                {
+                    <div class="px-4 pt-0 pb-4 cover">
+                        <div class="media align-items-end profile-head">
+                            <div class="media-body mb-5 text-white" style="margin-top: 70px;">
+                                <h4 class="mt-0 mb-0" style="color: #ffffff; font-size:30px;">
+                                    @user.fullname
+                                    <a href="@Url.Action("EditProfile", "Account")">
+                                        <i class="fas fa-pencil-alt" style="color: #96a2b8;"></i>
+                                    </a>
+                                </h4>
+                                <p class="mb-4" style="color: #ffffff;"> <i class="fas fa-envelope mr-2"></i>@user.email</p>
+                            </div>
+                            <div class="profile mr-3">
+                                <a href="@Url.Action("EditProfile", "Account")" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Information-->
+                    <br>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="py-4 px-4" style="margin: auto;">
+                            <div class="row">
+                                <div class="pr-lg-1 mb-2 col-md-4">
+                                    <div class="left-component p-4 rounded shadow-sm">
+                                        <h4 class="mb-0"><strong>About</strong></h4>
+                                        <p>@user.bio</p>
+                                        <div style="font-size: 25px;" class="row col-md-12">
+                                            <a href="" target="_blank" class="col-md-3">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            <a href="" target="_blank" class="col-md-3">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                            <a href="" target="_blank" class="col-md-3">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            <a href="" target="_blank" class="col-md-3">
+                                                <i class="fab fa-youtube"></i>
+                                            </a>
+                                            <i class=""></i>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="left-component p-4 rounded shadow-sm">
+                                        <h4 class="mb-0"><strong>Account</strong></h4>
+                                        <p style="color: #333">Check your orders, add payment options, manage your password and more.</p>
+                                        <a style="color: #00669c;" href=""> Go to your account</a>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2 pl-lg-1 col-md-8">
+                                    <div class="right-component p-4 rounded shadow-sm bg-light">
+                                        <div class="py-3 d-flex justify-content-between">
+                                            <h3 class="mb-0"><strong>Groups</strong></h3>
+                                        </div><hr>
+                                        <p></p>
+                                    </div>
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="right-component p-4 rounded shadow-sm bg-light">
+                                            <div class="row first-right-comment" style="padding-left: 15px;">
+                                                <p style="padding: 7px; color: black; ">@item.groupName</p>
+                                            </div>
+                                            <hr style="color: black;">
+                                        </div><br>
+                                    }
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
