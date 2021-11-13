@@ -182,6 +182,22 @@ namespace GroupMana.Controllers
             }
         }
 
+        public Group GetGroupsOfId(int id)
+        {
+            try
+            {
+                var groups = from g in db.Groups
+                             where g.groupId == id
+                             select g;
+                return groups.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return null;
+            }
+        }
+
         public List<Project> GetProjectsOfGroup(int groupId)
         {
             try
