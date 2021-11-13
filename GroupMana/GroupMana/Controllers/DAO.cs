@@ -181,6 +181,7 @@ namespace GroupMana.Controllers
                 return null;
             }
         }
+
         public List<Project> GetProjectsOfGroup(int groupId)
         {
             try
@@ -192,6 +193,20 @@ namespace GroupMana.Controllers
             {
                 ex.StackTrace.ToString();
                 return null;
+            }
+        }
+
+        public Boolean CheckGroupName(string name)
+        {
+            try
+            {
+                var groupname = from prj in db.Groups where prj.groupName.Equals(name) select prj;
+                return groupname.ToList().Count() != 0;
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return false;
             }
         }
         #endregion

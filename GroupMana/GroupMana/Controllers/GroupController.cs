@@ -10,6 +10,7 @@ namespace GroupMana.Controllers
     public class GroupController : Controller
     {
         Model dao = new Model();
+        DAO db = new DAO();
         // GET: Member
         public ActionResult Index()
         {
@@ -23,8 +24,25 @@ namespace GroupMana.Controllers
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
             Group group = new Group();
-            int privateOrPublic = 0;
-            group.groupName = groupname;
+            int privateOrPublic;
+            Boolean isExist;
+            if (db.CheckGroupName(groupname) == true)
+            {
+                ViewBag.Message = "Group name duplicate";
+                isExist = true;
+            } 
+            else
+            {
+                isExist = false;
+            }
+            if (isExist == true)
+            {
+                return View();
+            }
+            else
+            {
+                group.groupName = groupname;
+            }
             group.description = description;
             if (state.Equals("Private"))
             {
@@ -39,8 +57,19 @@ namespace GroupMana.Controllers
             group.status = true;
             dao.Groups.Add(group);
             dao.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AddFirstMember", "Group", group);
         }
+
+        public ActionResult AddFirstMember(Group g)
+        {
+            int id = (int)Session["idUser"];
+            User x = dao.Users.SingleOrDefault(b => b.userID == id);
+            Member m = new Member { userID = x.userID, groupId = g.groupId, roleId = 1, state = 0, status = true };
+            dao.Members.Add(m);
+            dao.SaveChanges();
+            return RedirectToAction("ViewGroupsOfUser", "Member");
+        }
+
         public ActionResult FindGroup()
         {
 

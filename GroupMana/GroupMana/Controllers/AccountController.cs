@@ -14,10 +14,7 @@ namespace GroupMana.Controllers
 
         public ActionResult Index()
         {
-
             return View();
-
-
         }
 
         [HttpPost]
@@ -27,10 +24,9 @@ namespace GroupMana.Controllers
             var x = dao.GetUserLogin(username, password);
             if (x != null)
             {
-
                 Session["idUser"] = x.userID;
                 //  ViewBag.error = "Sucessful";
-                if (dao.GetGroupsOfUser(x.userID)!=null)
+                if (dao.GetGroupsOfUser(x.userID).Count >= 1)
                 {
                     return RedirectToAction("ViewGroupsOfUser", "Member");
                 }
@@ -59,7 +55,7 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult Register(string signupusername, string signuppass, string resignuppass, string mail, string fname)
         {
-            Boolean isExist = false;
+            Boolean isExist;
             if (dao.checkExistUsername(signupusername) == true)
             {
                 ViewBag.messRegis = "Duplicate username!";
