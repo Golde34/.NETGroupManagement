@@ -1,8 +1,11 @@
 ﻿@using GroupMana.Models
-@model List<Member>
-    @{ 
-        var user = (User)ViewBag.User;
-    }
+@{
+    var member = (Member)ViewBag.Member;
+}
+@{
+    Model model = new Model();
+    var roles = model.Roles.ToList();
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,45 +100,45 @@
 
             <!-- Heading -->
             @*<div class="sidebar-heading">
-            Addons
-        </div>*@
+                    Addons
+                </div>*@
 
             <!-- Nav Item - Pages Collapse Menu -->
             @*<li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>*@
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Pages</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Login Screens:</h6>
+                            <a class="collapse-item" href="login.html">Login</a>
+                            <a class="collapse-item" href="register.html">Register</a>
+                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Other Pages:</h6>
+                            <a class="collapse-item" href="404.html">404 Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a>
+                        </div>
+                    </div>
+                </li>*@
 
             <!-- Nav Item - Charts -->
             @*<li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span>
-            </a>
-        </li>*@
+                    <a class="nav-link" href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Charts</span>
+                    </a>
+                </li>*@
 
             <!-- Nav Item - Tables -->
             @*<li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span>
-            </a>
-        </li>*@
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Tables</span>
+                    </a>
+                </li>*@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -211,30 +214,46 @@
                                     <h6 class="m-0 font-weight-bold text-primary">View Member</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered text-center" style="width:100%;">
-                                        <thead>
+                                    @using (Html.BeginForm("UpdateMemberRole", "Group", FormMethod.Post))
+                                    {
+                                        <table class="table">
                                             <tr>
-                                                <th style="width:60%;">Member name</th>
-                                                <th style="width:20%;">Role</th>
-                                                <th style="width:20%;"></th>
-                                                <th style="width:20%;"></th>
+                                                <td style="width: 30%;">User Name</td>
+                                                <td style="width: 70%;">
+                                                    @{ 
+                                                        var user = model.Users.FirstOrDefault(b => b.userID == member.userID);
+                                                    }
+                                                    <input type="hidden" name="userid" value="@member.userID">
+                                                    <input type="text" name="username" value="@user.fullname" class="form-control" readonly />
+                                                    @*<div class="invalid-feedback">
+                            Not blank and no space at beginning or ending
+                        </div>*@
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var p in Model)
-                                            {
                                             <tr>
-                                                <td>@p.User.fullname</td>
-                                                <td>@p.Role.roleName</td>
-                                                @if (@p.roleId != 1 &&  )
-                                                {
-                                                    <td><a class="btn btn-success" href="@Url.Action("UpdateMember","Group",new { member = p.userID })">Update</a></td>
-                                                    <td><a class="btn btn-danger" href="@Url.Action("RemoveMember","Group",new { member = p.userID })">Remove</a></td>
-                                                }
+                                                <td>Role</td>
+                                                <td>
+                                                    <select name="role">
+                                                        @foreach (var item in roles)
+                                                        {
+                                                            if (item.roleId == member.roleId)
+                                                            {
+                                                                <option value="@item.roleId" selected>@item.roleName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                            <option value="@item.roleId">@item.roleName</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
                                             </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+                                            <tr>
+                                                <td></td>
+                                                <td><button type="submit" class=" btn btn-primary">Update</button></td>
+                                            </tr>
+                                        </table>
+                                    }
                                 </div>
                             </div>
 

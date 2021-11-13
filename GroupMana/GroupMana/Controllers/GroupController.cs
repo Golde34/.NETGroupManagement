@@ -91,9 +91,13 @@ namespace GroupMana.Controllers
         }
         public ActionResult ViewMember()
         {
+
+            int id = (int)Session["idUser"];
+            User x = dao.Users.SingleOrDefault(b => b.userID == id);
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
             var members = dao.Members.Where(s => s.groupId == 1&& s.status==true).ToList();
+           
             ViewBag.members = members;
             return View(members);
         }
@@ -139,6 +143,23 @@ namespace GroupMana.Controllers
                 dao.Entry(mem).State = EntityState.Modified;
                 dao.SaveChanges();
                 return RedirectToAction("ViewMember");
+        }
+        public ActionResult UpdateMember(string member)
+        {    int memberid = int.Parse(member);
+
+            ViewBag.Member = dao.Members.SingleOrDefault(b => b.userID==memberid);
+         
+            return View();
+        }
+
+        public ActionResult UpdateMemberRole(string role,string userid)
+        {
+            int memberid = int.Parse(userid);
+
+           var x= dao.Members.SingleOrDefault(b => b.userID == memberid);
+            x.roleId = int.Parse(role);
+            dao.SaveChanges();
+            return RedirectToAction("ViewMember");
         }
     }
 }
