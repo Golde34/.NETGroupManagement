@@ -233,7 +233,7 @@
                                             @foreach (var p in Model)
                                             {
                                                 <tr>
-                                                    <td> <a href="@Url.Action("Index","Issue",new { g = p.projectId })">@p.projectName </a></td>
+                                                    <td> <a href="@Url.Action("Check","Issue",new { g = p.projectId })">@p.projectName </a></td>
                                                     <td>@p.description</td>
                                                     <td>
                                                         @p.createdate
