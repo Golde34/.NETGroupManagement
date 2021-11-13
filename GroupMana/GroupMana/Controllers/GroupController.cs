@@ -93,7 +93,7 @@ namespace GroupMana.Controllers
         {
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
-            var members = dao.Members.Where(s => s.groupId == 1).ToList();
+            var members = dao.Members.Where(s => s.groupId == 1&& s.status==true).ToList();
             ViewBag.members = members;
             return View(members);
         }
@@ -131,18 +131,14 @@ namespace GroupMana.Controllers
             dao.SaveChanges();
             return View();
         }
-        [HttpPost]
-        public ActionResult RemoveMember(int member, int group)
+        public ActionResult RemoveMember(int member)
         {
-            if (ModelState.IsValid)
-            {
+            int group = (int)Session["groupId"];
                 var mem = dao.Members.Where(s => s.userID == member && s.groupId == group).First();
                 mem.status = false;
                 dao.Entry(mem).State = EntityState.Modified;
                 dao.SaveChanges();
                 return RedirectToAction("ViewMember");
-            }
-            return RedirectToAction("ViewMember");
         }
     }
 }

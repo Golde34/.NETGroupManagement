@@ -25,8 +25,7 @@ namespace GroupMana.Controllers
         }
         public ActionResult ViewProjectOfUser(string groupId)
         {
-            //int userId = (int)Session["idUser"];
-            int userId = 1;
+            int userId = (int)Session["idUser"];
             int group = int.Parse(groupId);
             Session["groupId"] = group;
             List<Project> groups = dao.Projects.Where( s => s.groupId==group).ToList();
