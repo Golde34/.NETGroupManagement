@@ -27,6 +27,7 @@ namespace GroupMana.Models
         public int? state { get; set; }
 
         public int? creator { get; set; }
+        public int? assignee { get; set; }
 
         public int? projectId { get; set; }
 

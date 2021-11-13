@@ -30,7 +30,7 @@ namespace GroupMana.Controllers
 
                 Session["idUser"] = x.userID;
                 //  ViewBag.error = "Sucessful";
-                if (dao.GetGroupsOfUser(x.userID)!=null)
+                if (dao.GetGroupsOfUser(x.userID).Count>=1)
                 {
                     return RedirectToAction("ViewGroupsOfUser", "Member");
                 }

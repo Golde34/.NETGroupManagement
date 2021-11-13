@@ -44,7 +44,7 @@ namespace GroupMana.Controllers
         {
             try
             {
-                db.Database.ExecuteSqlCommand($"insert into Users(email, password, fullname, username, profileimage, status ) values ('{email}', '{password}', '{fullname}', '{username}', 'link', 1)");
+                db.Database.ExecuteSqlCommand($"INSERT INTO Users(username, password, fullname, email, dob, gender, bio, isAdmin, status) VALUES('{username}', '{password}', '{fullname}', '{email}', '', '', 'What are you thinking?', '0', '1')");
                 db.SaveChanges();
             }
             catch (Exception ex)
