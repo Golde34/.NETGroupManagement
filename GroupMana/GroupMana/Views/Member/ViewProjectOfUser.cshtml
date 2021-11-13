@@ -1,5 +1,5 @@
 ﻿@using GroupMana.Models
-@model List<Member>
+@model List<Project>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -306,30 +306,27 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">View Your Group</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"> @ViewBag.GroupName</h6>
                                 </div>
                                 <div class="card-body">
                                     <h6 class="m-0 font-weight-bold text-danger">@ViewBag.Messages</h6>
                                     <table class="table table-bordered text-center" style="width:100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width:60%;">Group name</th>
-                                                <th style="width:20%;">Role</th>
-                                                <th style="width:20%;">Action</th>
+                                                <th style="width:60%;">Project name</th>
+                                                <th style="width:20%;">Description</th>
+                                                <th style="width:20%;">Create Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var p in Model)
                                             {
                                                 <tr>
-                                                    <td> <a href="@Url.Action("ViewProjectOfUser","Member",new { groupId = p.groupId })">@p.Group.groupName </a></td>
-                                                    <td>@p.Role.roleName</td>
+                                                    <td> <a href="@Url.Action("Index","Issue",new { g = p.projectId })">@p.projectName </a></td>
+                                                    <td>@p.description</td>
                                                     <td>
-                                                        @if (p.roleId != 1)
-                                                        {
-                                                            <a class="btn btn-danger" href="@Url.Action("LeaveGroup","Member",new { groupId = p.groupId })" onclick="return confirm('Are you sure?');">Leave</a>
-                                                        }
-
+                                                        @p.createdate
+                                                        
                                                     </td>
                                                 </tr>
                                             }

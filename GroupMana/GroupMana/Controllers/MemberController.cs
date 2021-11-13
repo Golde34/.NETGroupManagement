@@ -15,9 +15,19 @@ namespace GroupMana.Controllers
         // GET: Member
         public ActionResult ViewGroupsOfUser()
         {
-            int userId = (int)Session["idUser"];
+            //int userId = (int)Session["idUser"];
+            int userId = 1;
             List<Member> groups = dao.Members.Where(s => s.userID == userId && s.status==true).ToList();
             ViewBag.Invitations = groups;
+            return View(groups);
+        }
+        public ActionResult ViewProjectOfUser(string groupId)
+        {
+            //int userId = (int)Session["idUser"];
+            int userId = 1;
+            int group = int.Parse(groupId); 
+            List<Project> groups = dao.Projects.Where( s => s.groupId==group).ToList();
+            ViewBag.GroupName = dao.Groups.SingleOrDefault(b => b.groupId == group).groupName;
             return View(groups);
         }
         public ActionResult ViewInviation()
@@ -50,13 +60,10 @@ namespace GroupMana.Controllers
         }
         public ActionResult LeaveGroup(int groupId)
         {
-            int userId = (int)Session["idUser"];
+            //int userId = (int)Session["idUser"];
+            int userId = 1;
             Member mem = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
-            if (mem.roleId == 1)
-            {
-                ViewBag.Messages = "You can not leave this group because you are manager";
-                return RedirectToAction("ViewGroupsOfUser");
-            }
+          
             mem.status = false;
             dao.Entry(mem).State = EntityState.Modified;
             dao.SaveChanges();

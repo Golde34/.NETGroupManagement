@@ -12,13 +12,14 @@ namespace GroupMana.Controllers
         Model model = new Model();
         DAO dao = new DAO();
 
-        public ActionResult Index()
+        public ActionResult Index(string g)
         {
 
-            //int userId = (int)Session["idUser"];
-            int userId = 1;
+            int userId = (int)Session["idUser"];
+            int projectid = Int32.Parse(g);
+
             ViewBag.Member = dao.GetMemberByuserid(userId);
-            var x = dao.GetIssueOfProject(1);
+            var x = dao.GetIssueOfProject(projectid);
             return View(x);
         }
 

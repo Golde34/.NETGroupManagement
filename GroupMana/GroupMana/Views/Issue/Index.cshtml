@@ -419,19 +419,25 @@
                                                         User user = model.Users.Find(item.creator);
                                                     }
                                                     <td>@user.fullname</td>
-                                                    @if (ux.state == 1 && item.status==true)
+                                                    @if (ux.roleId == 1 && item.status == true)
                                                     {
-                                                    <td>@Html.ActionLink("Delete", "Delete", "Issue", new { id= item.issueId }, htmlAttributes: null)</td>
-
-                                                    }
-                                                    @if (ux.state == 1 && item.status == false)
-                                                    {
-                                                   <td>@Html.ActionLink("Restore", "Restore", "Issue", new { id = item.issueId }, htmlAttributes: null)</td>
-
-                                                    }
+                                                <td>
+                                                    <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
+                                                </td>
 
 
-                                                </tr>
+                                                            }
+                                                            @if (ux.roleId == 1 && item.status == false)
+                                                            {
+
+                                                <td>
+                                                    <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
+                                                </td>
+
+                                                                }
+
+
+                                                        </tr>
                                                 }
 
                                             </tbody>
