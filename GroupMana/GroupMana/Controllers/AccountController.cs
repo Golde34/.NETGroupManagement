@@ -26,7 +26,7 @@ namespace GroupMana.Controllers
             {
                 Session["idUser"] = x.userID;
                 //  ViewBag.error = "Sucessful";
-                if (dao.GetGroupsOfUser(x.userID).Count>=1)
+                if (dao.GetGroupsOfUser(x.userID).Count >= 1)
                 {
                     return RedirectToAction("ViewGroupsOfUser", "Member");
                 }
@@ -131,38 +131,50 @@ namespace GroupMana.Controllers
         //    Session.Clear();
         //    return RedirectToAction("Welcome");
         //}
-        public ActionResult ForgotPass()
+        public ActionResult ChangePass()
         {
+            int userId = (int)Session["idUser"];
+            ViewBag.User = dao.GetUserByuserid(userId);
             return View();
         }
         [HttpPost]
-        public ActionResult ForgotPass(string username, string email, string newpassword, string renewpassword)
+        public ActionResult ChangePass(string username, string newpassword, string renewpassword)
         {
-            if (dao.checkExistUserNameAndEmail(username, email) == false)
-            {
-                ViewBag.mess = "Username or email does not exist!";
-                return View();
-            }
-            else
+            int userId = (int)Session["idUser"];
+            var x = model.Users.SingleOrDefault(b => b.userID == userId);
+
+            if (newpassword != null && renewpassword != null)
             {
                 if (!newpassword.Equals(renewpassword))
                 {
+                    ViewBag.User = model.Users.Find(userId);
                     ViewBag.mess = "Password and re-password does not match!";
                     return View();
                 }
                 else
                 {
-                    dao.ResetPass(username, newpassword);
-                    ViewBag.mess = "Reset password successfully!";
-                    return View();
+                    if (newpassword.Equals(x.password))
+                    {
+                        ViewBag.User = model.Users.Find(userId);
+                        ViewBag.mess = "Duplicate with old password!";
+                        return View();
+                    }
+                    else
+                    {
+                        x.password = newpassword;
+                        model.SaveChanges();
+                        ViewBag.User = model.Users.Find(userId);
+                        ViewBag.mess = "Reset password successfully!";
+                        return View();
+                    }
                 }
             }
+            return View();
         }
 
         public ActionResult UserProfile()
         {
-            //  int userId = (int)Session["idUser"];
-            int userId = 1;
+            int userId = (int)Session["idUser"];
             var listgroup = dao.GetGroupsOfUser(userId);
             ViewBag.User = dao.GetUserByuserid(userId);
             return View(listgroup);
@@ -185,32 +197,32 @@ namespace GroupMana.Controllers
 
         public ActionResult EditProfile()
         {
-            //  int userId = (int)Session["idUser"];
-            int userId = 1;
-            ViewBag.User  = dao.GetUserByuserid(userId);
+            int userId = (int)Session["idUser"];
+            //int userId = 1;
+            ViewBag.User = dao.GetUserByuserid(userId);
             return View();
         }
         [HttpPost]
         public ActionResult EditProfile(string fullname, string bio, DateTime dob, string email, int gender)
         {
 
-            //int userId = (int)Session["idUser"];
-            int userId = 1;
+            int userId = (int)Session["idUser"];
+            //int userId = 1;
 
-            var x = model.Users.SingleOrDefault(b => b.userID ==userId);
-            if (fullname!=null)
+            var x = model.Users.SingleOrDefault(b => b.userID == userId);
+            if (fullname != null)
             {
                 x.fullname = fullname;
             }
-            if (bio!=null)
+            if (bio != null)
             {
                 x.bio = bio;
             }
-            if (email!= null)
+            if (email != null)
             {
                 x.email = email;
             }
-         
+
 
 
             x.dob = dob;

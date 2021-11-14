@@ -1,6 +1,11 @@
-﻿
+﻿@using GroupMana.Models
 @{
     Layout = null;
+}
+
+@{
+    User user = ViewBag.User;
+
 }
 
 <!DOCTYPE html>
@@ -195,17 +200,13 @@
 <body>
     <div class="container">
         <div id="logreg-forms">
-            @using (Html.BeginForm("ForgotPass", "Account", FormMethod.Post, new { @class = "form-forgotpass" }))
+            @using (Html.BeginForm("ChangePass", "Account", FormMethod.Post, new { @class = "form-changepass" }))
             {
                 @Html.AntiForgeryToken()
-                <p style="font-size: 30px;">Reset password</p>
+                <p style="font-size: 30px;">Change password</p>
                 <!--Username-->
                 <label for="user" class="label">Username</label>
-                <input id="user" type="text" name="username" placeholder="Username" class="form-control" required>
-                <!--Email-->
-                <label class="label">Enter Email</label>
-                <input type="text" name="email" @*pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"*@ class="form-control"
-                       id="email" placeholder="Email" required>
+                <input id="user" value="@user.username" type="text" name="username" placeholder="Username" class="form-control" readonly>
                 <!--New password-->
                 <label class="label">New password</label>
                 <input id="newpassword" type="password" name="newpassword" placeholder="New password" class="form-control" required>
@@ -218,8 +219,8 @@
                     <i class="fas fa-sign-in-alt"></i> Submit
                 </button>
                 <div class="row">
-                    <a class="col-md-6" style="font-size: 15px;" href="Index" id="cancel_signup"> Back to Login</a>
-                    <a class="col-md-6 text-right" style="font-size: 15px;" href="@Url.Action("Index","Intro")" id="cancel_signup"> Back to HomePage</a>
+                    <a class="col-md-6" style="font-size: 15px;" href="@Url.Action("ViewGroupsOfUser","Member")" id="cancel_signup"> View Groups</a>
+                    <a class="col-md-6 text-right" style="font-size: 15px;" href="@Url.Action("UserProfile","Account")" id="cancel_signup"> View Profile</a>
                 </div>
             }
         </div>

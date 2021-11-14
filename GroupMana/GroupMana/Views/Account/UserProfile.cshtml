@@ -223,11 +223,12 @@
                     <br>
                     <div class="row" style="margin-top: 10px;">
                         <div class="py-4 px-4" style="margin: auto;">
-                            <div class="row">
+                            <div class="row" style="width: 800px;">
                                 <div class="pr-lg-1 mb-2 col-md-4">
                                     <div class="left-component p-4 rounded shadow-sm">
                                         <h4 class="mb-0"><strong>About</strong></h4>
-                                        <p>@user.bio</p>
+                                        <br />
+                                        <p>Bio: @user.bio</p>
                                         <div style="font-size: 25px;" class="row col-md-12">
                                             <a href="" target="_blank" class="col-md-3">
                                                 <i class="fab fa-facebook-f"></i>
@@ -247,23 +248,25 @@
                                     <br>
                                     <div class="left-component p-4 rounded shadow-sm">
                                         <h4 class="mb-0"><strong>Account</strong></h4>
-                                        <p style="color: #333">Check your orders, add payment options, manage your password and more.</p>
-                                        <a style="color: #00669c;" href=""> Go to your account</a>
+                                        <br />
+                                        <p style="color: #333">Username: @user.username</p>
+                                        <a style="color: #00669c;" href="@Url.Action("ChangePass","Account")"> Change password</a>
+                                        <br />
+                                        <a style="color: #00669c;" href="@Url.Action("ViewGroupsOfUser","Member")"> View Group</a>
                                     </div>
                                 </div>
 
                                 <div class="mb-2 pl-lg-1 col-md-8">
                                     <div class="right-component p-4 rounded shadow-sm bg-light">
-                                        <div class="py-3 d-flex justify-content-between">
+                                        <div class="py-3 d-flex justify-content-between" style="margin-left:180px;">
                                             <h3 class="mb-0"><strong>Groups</strong></h3>
-                                        </div><hr>
-                                        <p></p>
+                                        </div>
                                     </div>
                                     @foreach (var item in Model)
                                     {
                                         <div class="right-component p-4 rounded shadow-sm bg-light">
                                             <div class="row first-right-comment" style="padding-left: 15px;">
-                                                <p style="padding: 7px; color: black; ">@item.groupName</p>
+                                                <p style="padding: 7px; color: black; font-size:25px; ">@item.groupName</p>
                                             </div>
                                             <hr style="color: black;">
                                         </div><br>

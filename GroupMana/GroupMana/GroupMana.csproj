@@ -186,7 +186,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ForgotPass.cshtml" />
+    <Content Include="Views\Account\ChangePass.cshtml" />
     <Content Include="Views\Group\AddGroup.cshtml" />
     <Content Include="Views\Group\FindGroup.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
