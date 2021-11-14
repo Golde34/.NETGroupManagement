@@ -3,7 +3,6 @@
 
 @{
     var issue = (Issue)ViewBag.Issue;
-    User user = ViewBag.User;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -65,10 +64,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (user.isAdmin == true)
-                        {
-                            <a class="collapse-item" href="@Url.Action("ModifyGroup","Group")">Modify a group</a>
-                        }
                         <a class="collapse-item active" href="@Url.Action("ViewMember","Group")">View members</a>
                         <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>
