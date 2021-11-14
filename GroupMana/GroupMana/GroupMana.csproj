@@ -201,6 +201,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Member\ViewGroupsOfUser.cshtml" />
     <Content Include="Views\Member\ViewProjectOfUser.cshtml" />
+    <Content Include="Views\Group\ModifyGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
