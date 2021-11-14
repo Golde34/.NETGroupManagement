@@ -114,5 +114,26 @@ namespace GroupMana.Controllers
             model.SaveChanges();
             return RedirectToAction("AddIssue");
         }
+
+        [HttpGet]
+        public ActionResult IssueDetail(String iid)
+        {
+            int id = int.Parse(iid);
+            ViewBag.Issue = model.Issues.FirstOrDefault(i => i.issueId == id);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult IssueDetail(int issueid, int state)
+        {
+            var issue = model.Issues.SingleOrDefault(b => b.issueId == issueid);
+
+            issue.state = state;
+            model.SaveChanges();
+
+            ViewBag.Issue = model.Issues.Find(issueid);
+            ViewBag.mess = "Update succesfully!";
+            return View();
+        }
     }
 }
