@@ -1,9 +1,9 @@
 ﻿@using GroupMana.Models
-@model List<Issue>
-@{ 
-    var ux = (Member)ViewBag.Member;
-}
+@model List<Member>
 
+@{
+    var issue = (Issue)ViewBag.Issue;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +32,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        <!-- Sidebar -->
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -63,10 +64,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (ux.roleId == 1)
-                        {
-                            <a class="collapse-item" href="@Url.Action("ModifyGroup","Group")">Modify a group</a>
-                        }
                         <a class="collapse-item" href="@Url.Action("ViewMember","Group")">View members</a>
                         <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>
@@ -83,7 +80,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="@Url.Action("ViewProjectOfUser","Member")">View Projects</a>
+                        <a class="collapse-item" href="@Url.Action("ViewProjectOfUser","Member")">View Projects</a>
                         <a class="collapse-item" href="@Url.Action("AddProject","Project")">Add Project</a>
                     </div>
                 </div>
@@ -98,7 +95,7 @@
                 <div id="collapseIssue" class="collapse show" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="@Url.Action("Index","Issue")">View Issue</a>
+                        <a class="collapse-item" href="@Url.Action("Index","Issue")">View Issue</a>
                         <a class="collapse-item" href="@Url.Action("AddIssue","Issue")">Add Issue</a>
                     </div>
                 </div>
@@ -110,51 +107,6 @@
                     <span>Your invitation</span>
                 </a>
             </li>
-
-            <!-- Divider -->
-            @*<hr class="sidebar-divider">*@
-
-            <!-- Heading -->
-            @*<div class="sidebar-heading">
-            Addons
-        </div>*@
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            @*<li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>*@
-
-            <!-- Nav Item - Charts -->
-            @*<li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span>
-            </a>
-        </li>*@
-
-            <!-- Nav Item - Tables -->
-            @*<li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span>
-            </a>
-        </li>*@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -218,7 +170,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Issues</h1>
+                    <a href="@Url.Action("Index","Issue")" class="btn btn-default"><h1 class="h3 mb-4 text-gray-800">Back</h1></a>
 
                     <div class="row">
 
@@ -227,115 +179,118 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Issues</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Issue</h6>
                                 </div>
-                                <div class="card-body">
-                                    <!-- Circle Buttons (Default) -->
-                                    <div class="table-responsive">
-                                        <table style="width: 100%;" class="table text-center">
-                                            <thead class="text-uppercase bg-gray-200">
-                                                <tr>
-                                                    <th style="width: 15%">Issue Name</th>
-                                                    <th style="width: 20%">Start Date</th>
-                                                    <th style="width: 20%">Due Date</th>
-                                                    <th style="width: 10%">Create</th>
-                                                    <th style="width: 10%">Assignee</th>
-                                                    <th style="width: 10%">State</th>
-                                                    @if (ux.roleId == 1)
-                                                    {
-                                                        <th style="width: 15%">Action</th>
-                                                        <th style="width: 15%">Change</th>
-                                                    }
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    Model model = new Model();
-                                                }
-                                                @foreach (var item in Model)
-                                                {
-
-                                                  
-                                                <tr>
-
-                                                    <td><a href="@Url.Action("IssueDetail", "Issue", new { iid = item.issueId })">@item.title</a></td>
-                                                    <td>@item.startDate</td>
-                                                    <td>@item.dueDate</td>
-                                                    @{
-
-                                                        User user = model.Users.Find(item.creator);
-                                                        User assignee = model.Users.Find(item.assignee);
-                                                    }
-                                                    <td>@user.fullname</td>
-                                                    <td>@assignee.fullname</td>
-                                                    @if (item.state == 0)
-                                                    {
-                                                        <td>Postpone</td>
-                                                    }
-                                                    else if (item.state == 1)
-                                                    {
-                                                        <td>Doing</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>Done</td>
-                                                    }
-
-
-                                                    @if (ux.roleId == 1 && item.status == true)
-                                                    {
-                                                        <td> <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })">Edit</a> </td>
-
-
-                                                        <td>  <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a></td>
-
-
-
-
-
-                                                    }
-                                                    @if (ux.roleId == 1 && item.status == false)
-                                                    {
-                                                        <td>
-                                                            <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })">Edit</a></td>
-                                                        <td>
-                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a></td>
-
-                                                            }
-
-
-
-                                                    </tr>
-                                                }
-                                            </tbody>
+                                @using (Html.BeginForm("IssueDetail", "Issue", FormMethod.Post, new { @class = "form-issuedetail" }))
+                                {
+                                    <div class="card-body">
+                                        <table class="table" style="width:100%;">
+                                            <tr>
+                                                <td>Title</td>
+                                                <td>
+                                                    <input readonly="" pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" class="form-control" value="@issue.title" type="text" name="title" required>
+                                                    <div class="invalid-feedback">
+                                                        Not blank and no space at beginning or ending
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Start Date</td>
+                                                @{ string startdate = issue.startDate.ToString("yyyy-MM-dd");}
+                                                <td><input readonly="" max="2050-01-01" id="inputDate1" required class="form-control" value="@startdate" type="date" name="startdate"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Due Date</td>
+                                                @{ string duedate = issue.dueDate.ToString("yyyy-MM-dd");}
+                                                <td><input readonly="" max="2050-01-01" id="inputDate2" required class="form-control" value="@duedate" type="date" name="duedate"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>
+                                                    <input readonly="" pattern="^[^\s]+(\s+[^\s]+)*$" name="description" class="form-control" value="@issue.description" required>
+                                                    <div class="invalid-feedback">
+                                                        Not blank and no space at beginning or ending
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Content</td>
+                                                <td>
+                                                    <input readonly="" pattern="^[^\s]+(\s+[^\s]+)*$" name="content" class="form-control" value="@issue.content" required>
+                                                    <div class="invalid-feedback">
+                                                        Not blank and no space at beginning or ending
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>State</strong></td>
+                                                <td>
+                                                    <select style="height:28px;" name="state" id="state">
+                                                        @if (issue.state == 0)
+                                                        {
+                                                            <option selected value="0">Postpone</option>
+                                                            <option value="1">Doing</option>
+                                                            <option value="2">Done</option>
+                                                        }
+                                                        else if (issue.state == 1)
+                                                        {
+                                                            <option value="0">Postpone</option>
+                                                            <option selected value="1">Doing</option>
+                                                            <option value="2">Done</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="0">Postpone</option>
+                                                            <option value="1">Doing</option>
+                                                            <option selected value="2">Done</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <input type="hidden" value="@issue.issueId" name="issueid">
+                                                    <input type="submit" value="Update Issue" class="btn btn-primary">
+                                                    <h6 class="text-success px-4 noti" style="margin-top: 20px;">@ViewBag.Mess</h6>
+                                                </td>
+                                            </tr>
                                         </table>
-                                    </div>
 
-                                </div>
+                                    </div>
+                                }
                             </div>
+
+
                         </div>
+
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>LilLab&copy; 2021</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
             <!-- End of Footer -->
+
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
