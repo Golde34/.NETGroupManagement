@@ -218,6 +218,10 @@
                                                         {
                                                             <a class="btn btn-danger" href="@Url.Action("LeaveGroup","Member",new { groupId = p.groupId })" onclick="return confirm('Are you sure?');">Leave</a>
                                                         }
+                                                        else
+                                                        {
+                                                            <a class="btn btn-info" href="@Url.Action("ModifyGroup","Group",new { groupId = p.groupId })">Edit</a>
+                                                        }
 
                                                     </td>
                                                 </tr>

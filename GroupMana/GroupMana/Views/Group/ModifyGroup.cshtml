@@ -74,10 +74,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (ux.roleId == 1)
-                        {
-                            <a class="collapse-item" href="@Url.Action("ModifyGroup","Group")">Modify a group</a>
-                        }
                         <a class="collapse-item" href="@Url.Action("ViewMember","Group")">View members</a>
                         <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>
@@ -218,68 +214,79 @@
                         <circle fill="#6E49CB" r="17" cy="30" cx="21"></circle>
                         <circle fill-opacity=".9" fill="#fff" r="17" cy="30" cx="21"></circle>
                         <path stroke-linecap="round" stroke-width="2" stroke="#6E49CB" d="M21 37V23m-7 7h14"></path>
-                    </svg> <h1>Create Group</h1>
-                    <div class="card">
-                        <p>Groups allow you to manage and collaborate across multiple projects.</p>
-                        <p>Members of a group have access to all of its projects.</p>
-                        <h6 class="text-danger">@ViewBag.Message</h6>
-                        <br />
-                        @using (Html.BeginForm("AddGroup", "Group", FormMethod.Post, new { @class = "form-addgroup" }))
-                        {
-                            <table class="table table-striped">
-                                <tr>
-                                    <td style="width: 30%;"><strong>Group Name</strong></td>
-                                    <td style="width: 70%;">
-                                        <input pattern="[^' ']+" class="form-control" type="text" name="groupname" required>
-                                        <div class="invalid-feedback">
-                                            Not blank and no space at beginning or ending
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Description</strong></td>
-                                    <td>
-                                        <textarea pattern="[^' ']+" class="form-control" type="text" name="description" required></textarea>
-                                        <div class="invalid-feedback">
-                                            Not blank and no space
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Visibility level</strong></td>
-                                    <td>
-                                        <input type="radio" id="statePrivate" name="state" value="Private" checked>
-                                        <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
-                                        <p> The group and its projects can only be viewed by members.  </p>
-                                        <input type="radio" id="statePublic" name="state" value="Public">
-                                        <i class="fas fa-globe"></i><label for="statePublic">Public</label>
-                                        <p> The group and any public projects can be viewed without any authentication.</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Purpose</strong></td>
-                                    <td>
-                                        <select style="height:28px;" name="purpose" id="purpose">
-                                            <option value="I want to manage my projects well">I want to manage my projects well </option>
-                                            <option value="I want to create a community for my social project">I want to create a community for my social project</option>
-                                            <option value="I want to store my activity in project">I want to store my activity in project</option>
-                                            <option value="I want to explore GitLab to see if it’s worth switching to">I want to explore GitLab to see if it’s worth switching to </option>
-                                            <option value="A different reason">A different reason </option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <input type="submit" value="Add Group" class="btn btn-primary">
-                                        <input type="reset" value="Reset" class="btn btn-info" />
-                                        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "clsButtonFake" })
-                                    </td>
-                                </tr>
+                    </svg> <h1>Modify Group</h1>
+                           <div class="card">
+                               <p>Groups allow you to manage and collaborate across multiple projects.</p>
+                               <p>Members of a group have access to all of its projects.</p>
+                               <h6 class="text-danger">@ViewBag.Message</h6>
+                               <br />
+                               @{
+                                   var gr = (Group)ViewBag.g;
+                               }
+                               @using (Html.BeginForm("ModifyGroup", "Group", FormMethod.Post, new { @class = "form-modifygroup" }))
+                               {
 
-                            </table>
-                        }
-                    </div>
+                                   <table class="table table-striped">
+                                       <tr>
+                                           <td style="width: 30%;"><strong>Group Name</strong></td>
+                                           <td style="width: 70%;">
+                                               <input pattern="[^' ']+"  class="form-control" type="text" name="groupname" value="@gr.groupName" required>
+                                               <div class="invalid-feedback">
+                                                   Not blank and no space at beginning or ending
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><strong>Description</strong></td>
+                                           <td>
+                                               <input class="form-control" type="text" name="description" value="@gr.description" required>
+                                               <div class="invalid-feedback">
+                                                   Not blank
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><strong>Visibility level</strong></td>
+                                           <td>
+                                               @if (gr.state == 1)
+                                               {
+                                                   <input type="radio" id="statePrivate" name="state" value="Private">
+                                                   <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
+                                                   <p> The group and its projects can only be viewed by members.  </p>
+                                                   <input type="radio" id="statePublic" name="state" value="Public" checked>
+                                                   <i class="fas fa-globe"></i><label for="statePublic">Public</label>
+                                                   <p> The group and any public projects can be viewed without any authentication.</p>
+                                               }
+                                               else
+                                               {
+                                                   <input type="radio" id="statePrivate" name="state" value="Private" checked>
+                                                   <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
+                                                   <p> The group and its projects can only be viewed by members.  </p>
+                                                   <input type="radio" id="statePublic" name="state" value="Public">
+                                                   <i class="fas fa-globe"></i><label for="statePublic">Public</label>
+                                                   <p> The group and any public projects can be viewed without any authentication.</p>
+                                               }
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><strong>Purpose</strong></td>
+                                           <td>
+                                               <input class="form-control" type="text" name="purpose" value="@gr.purpose" required>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td></td>
+                                           <td>
+                                               <input type="hidden" name="grId" value="@gr.groupId" />
+                                               <input type="submit" value="Save Changes" class="btn btn-primary">
+                                               <input type="reset" value="Reset" class="btn btn-info" />
+                                               @Html.ActionLink("Cancel", "ViewGroupsOfUser", "Member", null, new { @class = "clsButtonFake" })
+                                           </td>
+                                       </tr>
+
+                                   </table>
+                               }
+                           </div>
                 </div>
             </div>
             <!-- End of Main Content -->

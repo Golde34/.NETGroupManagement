@@ -77,6 +77,7 @@ namespace GroupMana.Controllers
 
             return View(dao.Groups.ToList());
         }
+
         [HttpPost]
         public ActionResult FindGroup(string searchname)
         {
@@ -90,12 +91,43 @@ namespace GroupMana.Controllers
 
             return View(links);
         }
-
-        public ActionResult ModifyGroup()
+        [HttpGet]
+        public ActionResult ModifyGroup(int groupId)
         {
-            int groupId = (int)Session["groupId"];
             Group g = db.GetGroupsOfId(groupId);
-            return View(g);
+            ViewBag.g = g;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ModifyGroup(int grId,string groupname, string description, string purpose, string state)
+        {
+            var group = dao.Groups.FirstOrDefault(b => b.groupId == grId);
+            int privateOrPublic;
+            if (db.CheckGroupName(groupname) == true)
+            {
+                ViewBag.Message = "Group name duplicate";
+                ViewBag.g = group;
+                return View();
+            }
+            else
+            {
+                group.groupName = groupname;
+            }
+            group.description = description;
+            if (state.Equals("Private"))
+            {
+                privateOrPublic = 0;
+            }
+            else
+            {
+                privateOrPublic = 1;
+            }
+            group.state = privateOrPublic;
+            group.purpose = purpose;
+            group.status = true;
+            dao.SaveChanges();
+            return RedirectToAction("ViewGroupsOfUser", "Member", group);
         }
 
         public ActionResult ViewMember()
