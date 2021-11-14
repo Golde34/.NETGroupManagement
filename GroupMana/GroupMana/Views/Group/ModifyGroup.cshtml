@@ -1,6 +1,8 @@
 ﻿@using GroupMana.Models
 @model Group
-
+@{
+    User x = (User)ViewBag.user;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,11 +49,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("ViewGroupsOfUser","Member")">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Lil Lab</div>
             </a>
 
             <!-- Divider -->
@@ -81,16 +83,16 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Projects</span>
                 </a>
-                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="@Url.Action("ViewProjectOfUser","Member")">View Projects</a>
+                        <a class="collapse-item" href="@Url.Action("ViewProjectOfUser","Member")">View Projects</a>
                         <a class="collapse-item" href="@Url.Action("AddProject","Project")">Add Project</a>
                     </div>
                 </div>
@@ -180,7 +182,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@x.fullname</span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -189,6 +191,12 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @if (x.isAdmin == true) { 
+                                <a class="dropdown-item" href="@Url.Action("UserManagement","Admin")">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Admin
+                                </a>
+                                }
                                 <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
@@ -215,78 +223,78 @@
                         <circle fill-opacity=".9" fill="#fff" r="17" cy="30" cx="21"></circle>
                         <path stroke-linecap="round" stroke-width="2" stroke="#6E49CB" d="M21 37V23m-7 7h14"></path>
                     </svg> <h1>Modify Group</h1>
-                           <div class="card">
-                               <p>Groups allow you to manage and collaborate across multiple projects.</p>
-                               <p>Members of a group have access to all of its projects.</p>
-                               <h6 class="text-danger">@ViewBag.Message</h6>
-                               <br />
-                               @{
-                                   var gr = (Group)ViewBag.g;
-                               }
-                               @using (Html.BeginForm("ModifyGroup", "Group", FormMethod.Post, new { @class = "form-modifygroup" }))
-                               {
+                    <div class="card">
+                        <p>Groups allow you to manage and collaborate across multiple projects.</p>
+                        <p>Members of a group have access to all of its projects.</p>
+                        <h6 class="text-danger">@ViewBag.Message</h6>
+                        <br />
+                        @{
+                            var gr = (Group)ViewBag.g;
+                        }
+                        @using (Html.BeginForm("ModifyGroup", "Group", FormMethod.Post, new { @class = "form-modifygroup" }))
+                        {
 
-                                   <table class="table table-striped">
-                                       <tr>
-                                           <td style="width: 30%;"><strong>Group Name</strong></td>
-                                           <td style="width: 70%;">
-                                               <input pattern="[^' ']+"  class="form-control" type="text" name="groupname" value="@gr.groupName" required>
-                                               <div class="invalid-feedback">
-                                                   Not blank and no space at beginning or ending
-                                               </div>
-                                           </td>
-                                       </tr>
-                                       <tr>
-                                           <td><strong>Description</strong></td>
-                                           <td>
-                                               <input class="form-control" type="text" name="description" value="@gr.description" required>
-                                               <div class="invalid-feedback">
-                                                   Not blank
-                                               </div>
-                                           </td>
-                                       </tr>
-                                       <tr>
-                                           <td><strong>Visibility level</strong></td>
-                                           <td>
-                                               @if (gr.state == 1)
-                                               {
-                                                   <input type="radio" id="statePrivate" name="state" value="Private">
-                                                   <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
-                                                   <p> The group and its projects can only be viewed by members.  </p>
-                                                   <input type="radio" id="statePublic" name="state" value="Public" checked>
-                                                   <i class="fas fa-globe"></i><label for="statePublic">Public</label>
-                                                   <p> The group and any public projects can be viewed without any authentication.</p>
-                                               }
-                                               else
-                                               {
-                                                   <input type="radio" id="statePrivate" name="state" value="Private" checked>
-                                                   <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
-                                                   <p> The group and its projects can only be viewed by members.  </p>
-                                                   <input type="radio" id="statePublic" name="state" value="Public">
-                                                   <i class="fas fa-globe"></i><label for="statePublic">Public</label>
-                                                   <p> The group and any public projects can be viewed without any authentication.</p>
-                                               }
-                                           </td>
-                                       </tr>
-                                       <tr>
-                                           <td><strong>Purpose</strong></td>
-                                           <td>
-                                               <input class="form-control" type="text" name="purpose" value="@gr.purpose" required>
-                                           </td>
-                                       </tr>
-                                       <tr>
-                                           <td></td>
-                                           <td>
-                                               <input type="hidden" name="grId" value="@gr.groupId" />
-                                               <input type="submit" value="Save Changes" class="btn btn-primary">
-                                               <input type="reset" value="Reset" class="btn btn-info" />
-                                               @Html.ActionLink("Cancel", "ViewGroupsOfUser", "Member", null, new { @class = "clsButtonFake" })
-                                           </td>
-                                       </tr>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td style="width: 30%;"><strong>Group Name</strong></td>
+                                    <td style="width: 70%;">
+                                        <input pattern="[^' ']+" class="form-control" type="text" name="groupname" value="@gr.groupName" required>
+                                        <div class="invalid-feedback">
+                                            Not blank and no space at beginning or ending
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Description</strong></td>
+                                    <td>
+                                        <input class="form-control" type="text" name="description" value="@gr.description" required>
+                                        <div class="invalid-feedback">
+                                            Not blank
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Visibility level</strong></td>
+                                    <td>
+                                        @if (gr.state == 1)
+                                        {
+                                            <input type="radio" id="statePrivate" name="state" value="Private">
+                                            <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
+                                            <p> The group and its projects can only be viewed by members.  </p>
+                                            <input type="radio" id="statePublic" name="state" value="Public" checked>
+                                            <i class="fas fa-globe"></i><label for="statePublic">Public</label>
+                                            <p> The group and any public projects can be viewed without any authentication.</p>
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" id="statePrivate" name="state" value="Private" checked>
+                                            <i class="fas fa-lock"></i><label for="statePrivate">Private</label>
+                                            <p> The group and its projects can only be viewed by members.  </p>
+                                            <input type="radio" id="statePublic" name="state" value="Public">
+                                            <i class="fas fa-globe"></i><label for="statePublic">Public</label>
+                                            <p> The group and any public projects can be viewed without any authentication.</p>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Purpose</strong></td>
+                                    <td>
+                                        <input class="form-control" type="text" name="purpose" value="@gr.purpose" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="hidden" name="grId" value="@gr.groupId" />
+                                        <input type="submit" value="Save Changes" class="btn btn-primary">
+                                        <input type="reset" value="Reset" class="btn btn-info" />
+                                        @Html.ActionLink("Cancel", "ViewGroupsOfUser", "Member", null, new { @class = "clsButtonFake" })
+                                    </td>
+                                </tr>
 
-                                   </table>
-                               }
-                           </div>
+                            </table>
+                        }
+                    </div>
                 </div>
             </div>
             <!-- End of Main Content -->

@@ -18,7 +18,8 @@ namespace GroupMana.Controllers
 
             ViewBag.Messages = "You can not leave this group because you are manager";
             int userId = (int)Session["idUser"];
-
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             List<Member> groups = dao.Members.Where(s => s.userID == userId && s.status==true && s.state==1).ToList();
             ViewBag.Invitations = groups;
             return View(groups);
@@ -32,6 +33,8 @@ namespace GroupMana.Controllers
         public ActionResult ViewProjectOfUser()
         {
             int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             int group = (int)Session["groupId"];
             List<Project> groups = dao.Projects.Where( s => s.groupId==group && s.status==true).ToList();
             ViewBag.GroupName = dao.Groups.SingleOrDefault(b => b.groupId == group).groupName;
@@ -41,6 +44,8 @@ namespace GroupMana.Controllers
         public ActionResult ViewInviation()
         {
             int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             var invitation = dao.Members.Where(s => s.userID == userId && s.state == 0 && s.status==true).ToList();
             ViewBag.Invitations = invitation;
             return View(invitation);
@@ -67,8 +72,7 @@ namespace GroupMana.Controllers
         }
         public ActionResult LeaveGroup(int groupId)
         {
-            //int userId = (int)Session["idUser"];
-            int userId = 1;
+            int userId = (int)Session["idUser"];
             Member mem = dao.Members.Where(s => s.userID == userId && s.groupId == groupId).FirstOrDefault();
           
             mem.status = false;

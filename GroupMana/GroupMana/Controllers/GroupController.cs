@@ -13,18 +13,20 @@ namespace GroupMana.Controllers
         Model dao = new Model();
         DAO db = new DAO();
         // GET: Member
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult AddGroup()
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             return View(dao.Groups.ToList());
         }
 
         [HttpPost]
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             Group group = new Group();
             int privateOrPublic;
             Boolean isExist;
@@ -94,6 +96,9 @@ namespace GroupMana.Controllers
         [HttpGet]
         public ActionResult ModifyGroup(int groupId)
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             Group g = db.GetGroupsOfId(groupId);
             ViewBag.g = g;
             return View();
@@ -102,6 +107,9 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult ModifyGroup(int grId,string groupname, string description, string purpose, string state)
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             var group = dao.Groups.FirstOrDefault(b => b.groupId == grId);
             int privateOrPublic;
             if (db.CheckGroupName(groupname) == true)
@@ -135,16 +143,20 @@ namespace GroupMana.Controllers
 
             int id = (int)Session["idUser"];
             User x = dao.Users.SingleOrDefault(b => b.userID == id);
+            ViewBag.user = x;
             /*var members = dao.Menbers.Where(s => s.groupId == groupId).ToList();
             ViewBag.member = members;*/
             int groupId = (int)Session["groupId"];
-            var members = dao.Members.Where(s => s.groupId == groupId && s.status==true).ToList();
+            var members = dao.Members.Where(s => s.groupId == groupId && s.status==true && s.state==1).ToList();
             ViewBag.members = members;
             ViewBag.usermember = dao.Members.Where(s => s.groupId == groupId && s.userID == id).FirstOrDefault();
             return View(members);
         }
         public ActionResult InviteMember()
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             var query = dao.Roles.Select(m => new { m.roleId, m.roleName });
             ViewBag.Roles = new SelectList(query.AsEnumerable(), "roleId", "roleName");
             return View();
@@ -152,6 +164,9 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult InviteMember(string username, int role)
         {
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             int groupId = (int)Session["groupId"];
             bool isExist = false;
             User user = dao.Users.SqlQuery($"select * from Users where username = '{username}'").First();
@@ -181,7 +196,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult UpdateMember(string member)
         {    int memberid = int.Parse(member);
-
+            int userId = (int)Session["idUser"];
+            User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             ViewBag.Member = dao.Members.SingleOrDefault(b => b.userID==memberid);
          
             return View();

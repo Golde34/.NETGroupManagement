@@ -32,11 +32,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("ViewGroupsOfUser","Member")">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Lil Lab</div>
             </a>
 
             <!-- Divider -->
@@ -148,39 +148,55 @@
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <h1 class="h3 mb-4 text-gray-800">Projects</h1>
+                    <div class="row">
 
-                    @using (Html.BeginForm("AddProject", "Project", FormMethod.Post, new { @class = "form-addgroup" }))
-                    {
-                        <table class="table table-striped">
-                            <tr>
-                                <td style="width: 30%;"><strong>Project Name</strong></td>
-                                <td style="width: 70%;">
-                                    <input pattern="[^' ']+" class="form-control" type="text" name="projectname" required>
-                                    <div class="invalid-feedback">
-                                        Not blank and no space at beginning or ending
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Description</strong></td>
-                                <td>
-                                    <textarea pattern="[^' ']+" class="form-control" type="text" name="description" required></textarea>
-                                    <div class="invalid-feedback">
-                                        Not blank and no space
-                                    </div>
-                                </td>
-                            </tr>
+                        <div class="col-lg-12">
 
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <input type="submit" value="Add Project" class="btn btn-primary">
-                                    <input type="reset" value="Reset" class="btn btn-info" />
-                                </td>
-                            </tr>
+                            <!-- Circle Buttons -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Add Project</h6>
+                                </div>
+                                @using (Html.BeginForm("AddProject", "Project", FormMethod.Post, new { @class = "form-addgroup" }))
+                                {
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 30%;"><strong>Project Name</strong></td>
+                                            <td style="width: 70%;">
+                                                <input pattern="[^' ']+" class="form-control" type="text" name="projectname" required>
+                                                <div class="invalid-feedback">
+                                                    Not blank and no space at beginning or ending
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Description</strong></td>
+                                            <td>
+                                                <textarea pattern="[^' ']+" class="form-control" type="text" name="description" required></textarea>
+                                                <div class="invalid-feedback">
+                                                    Not blank and no space
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                        </table>
-                    }
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <input type="submit" value="Add Project" class="btn btn-primary">
+                                                <input type="reset" value="Reset" class="btn btn-info" />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                }
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->

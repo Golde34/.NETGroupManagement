@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using GroupMana.Models
+@{ 
+    User x = (User)ViewBag.user;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,11 +49,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             @*Sidebar - Brand*@
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("ViewGroupsOfUser","Member")">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Lil Lab</div>
             </a>
 
 
@@ -164,7 +168,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@x.fullname</span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -173,6 +177,12 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @if (x.isAdmin == true) { 
+                                <a class="dropdown-item" href="@Url.Action("UserManagement","Admin")">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Admin
+                                </a>
+                                }
                                 <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
@@ -253,7 +263,6 @@
                                     <td>
                                         <input type="submit" value="Add Group" class="btn btn-primary">
                                         <input type="reset" value="Reset" class="btn btn-info" />
-                                        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "clsButtonFake" })
                                     </td>
                                 </tr>
 

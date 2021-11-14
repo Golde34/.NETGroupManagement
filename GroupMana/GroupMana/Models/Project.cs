@@ -22,7 +22,7 @@ namespace GroupMana.Models
         [StringLength(255)]
         public string description { get; set; }
 
-        public DateTime? createdate { get; set; }
+        public DateTime createdate { get; set; }
 
         public int? groupId { get; set; }
 

@@ -25,11 +25,12 @@ namespace GroupMana.Controllers
         }
         public ActionResult Index()
         {
-
             int userId = (int)Session["idUser"];
+            User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = user;
+            int groupId = (int)Session["groupId"];
             int projectid = (int)Session["projectId"];
-
-            ViewBag.Member = dao.GetMemberByuserid(userId);
+            ViewBag.Member = model.Members.Where(s => s.groupId == groupId && s.userID == userId).FirstOrDefault();
             var x = dao.GetIssueOfProject(projectid);
             return View(x);
         }
@@ -76,6 +77,9 @@ namespace GroupMana.Controllers
 
         public ActionResult EditIssue(int issueid, string title, DateTime duedate, DateTime startdate, string description, string content)
         {
+            int userId = (int)Session["idUser"];
+            User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = user;
             var issue = model.Issues.SingleOrDefault(b => b.issueId == issueid);
             if (title != null)
             {
@@ -92,7 +96,7 @@ namespace GroupMana.Controllers
             issue.dueDate = duedate;
             issue.startDate = startdate;
             model.SaveChanges();
-
+            ViewBag.Member = model.Members.FirstOrDefault(i => i.userID == userId);
             ViewBag.Issue = model.Issues.Find(issueid);
             ViewBag.mess = "Update succesfully!";
             return View();
@@ -100,8 +104,11 @@ namespace GroupMana.Controllers
 
         public ActionResult AddIssue()
         {
+            int userId = (int)Session["idUser"];
+            User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = user;
             int groupId = (int)Session["groupId"];
-            var members = model.Members.Where(s => s.groupId == groupId).ToList();
+            var members = model.Members.Where(s => s.groupId == groupId &&s.state==1&&s.status==true).ToList();
             return View(members);
         }
         [HttpPost]

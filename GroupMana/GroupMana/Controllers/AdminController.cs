@@ -14,16 +14,25 @@ namespace GroupMana.Controllers
         // GET: Admin
         public ActionResult UserManagement()
         {
+            int userId = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             var users = model.Users.ToList();
             return View(users);
         }
         public ActionResult AddUser()
         {
+            int userId = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             return View();
         }
         [HttpPost]
         public ActionResult AddUser(string username,string password,string email,string fullname,string gender,string admin)
         {
+            int userId = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = x;
             int gen = Convert.ToInt32(gender);
             bool isAdmin = (admin.Equals("1")) ? true : false;
             bool isExist;
@@ -58,6 +67,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult EditUser(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user1 = x;
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             ViewBag.user = user;
@@ -66,6 +78,9 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult EditUser(string userid, string username, string password, string email, string fullname, string gender, string admin)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user1 = x;
             int userId = Convert.ToInt32(userid);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             int gen = Convert.ToInt32(gender);
@@ -106,6 +121,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult DeactiveUser(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             user.status = false;
@@ -115,6 +133,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult ActiveUser(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             user.status = true;
@@ -124,16 +145,25 @@ namespace GroupMana.Controllers
         }
         public ActionResult RoleManagement()
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             var roles = model.Roles.ToList();
             return View(roles);
         }
         public ActionResult AddRole()
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             return View();
         }
         [HttpPost]
         public ActionResult AddRole(string rolename)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             Role role = new Role { roleName = rolename ,status=true};
             model.Roles.Add(role);
             model.SaveChanges();
@@ -158,6 +188,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult EditRole(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             ViewBag.role = role;
@@ -166,6 +199,9 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult EditRole(string rolename, string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             role.roleName = rolename;
@@ -194,6 +230,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult DeactiveRole(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             role.status = false;
@@ -203,6 +242,9 @@ namespace GroupMana.Controllers
         }
         public ActionResult ActiveRole(string id)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
+            ViewBag.user = x;
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             role.status = true;
