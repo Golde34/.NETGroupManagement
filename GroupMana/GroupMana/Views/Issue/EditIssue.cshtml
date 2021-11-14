@@ -3,6 +3,7 @@
 
 @{
     var issue = (Issue)ViewBag.Issue;
+    User user = ViewBag.User;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (ux.roleId == 1)
+                        @if (user.isAdmin == true)
                         {
                             <a class="collapse-item" href="@Url.Action("ModifyGroup","Group")">Modify a group</a>
                         }
@@ -218,7 +219,6 @@
                                 @using (Html.BeginForm("EditIssue", "Issue", FormMethod.Post, new { @class = "form-editissue" }))
                                 {
                                     <div class="card-body">
-
                                         <table class="table" style="width:100%;">
                                             <tr>
                                                 <td>Title</td>
@@ -231,11 +231,21 @@
                                             </tr>
                                             <tr>
                                                 <td>Start Date</td>
-                                                <td><input max="2000-01-01" id="inputDate" required class="form-control" value="@issue.startDate" type="datetime" name="startdate"></td>
+                                                <td>
+                                                    <input id="inputDate" required class="form-control" value="@issue.startDate" type="datetime" name="startdate">
+                                                    <div class="invalid-feedback">
+                                                        Not blank and no space at beginning or ending
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Due Date</td>
-                                                <td><input max="2000-01-01" id="inputDate" required class="form-control" value="@issue.dueDate" type="datetime" name="duedate"></td>
+                                                <td>
+                                                    <input id="inputDate" required class="form-control" value="@issue.dueDate" type="datetime" name="duedate">
+                                                    <div class="invalid-feedback">
+                                                        Not blank and no space at beginning or ending
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Description</td>
@@ -265,7 +275,7 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        
+
                                     </div>
                                 }
                             </div>
