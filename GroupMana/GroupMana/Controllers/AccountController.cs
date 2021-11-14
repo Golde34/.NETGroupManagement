@@ -228,10 +228,14 @@ namespace GroupMana.Controllers
             {
                 x.email = email;
             }
+            if (dob!=null)
+            {
+                x.dob = dob;
+            }
 
 
 
-            x.dob = dob;
+          
             x.gender = gender;
             model.SaveChanges();
 
