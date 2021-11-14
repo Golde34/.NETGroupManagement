@@ -2,6 +2,7 @@
 @model List<Member>
     @{ 
         var user = (User)ViewBag.User;
+        var member = (Member)ViewBag.usermember;
     }
 <!DOCTYPE html>
 <html lang="en">
@@ -63,10 +64,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (ux.roleId == 1)
-                        {
-                            <a class="collapse-item" href="@Url.Action("ModifyGroup","Group")">Modify a group</a>
-                        }
+                      
                         <a class="collapse-item active" href="@Url.Action("ViewMember","Group")">View members</a>
                         <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>
@@ -220,8 +218,12 @@
                                             <tr>
                                                 <th style="width:60%;">Member name</th>
                                                 <th style="width:20%;">Role</th>
-                                                <th style="width:20%;"></th>
-                                                <th style="width:20%;"></th>
+                                                @if (member.roleId == 1)
+                                                {
+                                                    <th style="width:20%;"></th>
+                                                    <th style="width:20%;"></th>
+                                                }
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -230,12 +232,13 @@
                                             <tr>
                                                 <td>@p.User.fullname</td>
                                                 <td>@p.Role.roleName</td>
-                                                @if (@p.roleId != 1 )
+                                                @if (member.roleId == 1 &&p.roleId!=1)
                                                 {
-                                                    <td><a class="btn btn-success" href="@Url.Action("UpdateMember","Group",new { member = p.userID })">Update</a></td>
-                                                    <td><a class="btn btn-danger" href="@Url.Action("RemoveMember","Group",new { member = p.userID })">Remove</a></td>
+
+                                                        <td><a class="btn btn-success" href="@Url.Action("UpdateMember", "Group", new { member = p.userID })">Update</a></td>
+                                                        <td><a class="btn btn-danger" href="@Url.Action("RemoveMember", "Group", new { member = p.userID })">Remove</a></td>
                                                 }
-                                            </tr>
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>

@@ -66,7 +66,7 @@ namespace GroupMana.Controllers
         {
             int id = (int)Session["idUser"];
             User x = dao.Users.SingleOrDefault(b => b.userID == id);
-            Member m = new Member { userID = x.userID, groupId = g.groupId, roleId = 1, state = 0, status = true };
+            Member m = new Member { userID = x.userID, groupId = g.groupId, roleId = 1, state = 1, status = true };
             dao.Members.Add(m);
             dao.SaveChanges();
             return RedirectToAction("ViewGroupsOfUser", "Member");
@@ -140,6 +140,7 @@ namespace GroupMana.Controllers
             int groupId = (int)Session["groupId"];
             var members = dao.Members.Where(s => s.groupId == groupId && s.status==true).ToList();
             ViewBag.members = members;
+            ViewBag.usermember = dao.Members.Where(s => s.groupId == groupId && s.userID == id).FirstOrDefault();
             return View(members);
         }
         public ActionResult InviteMember()
