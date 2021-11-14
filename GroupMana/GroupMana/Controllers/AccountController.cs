@@ -202,6 +202,12 @@ namespace GroupMana.Controllers
             ViewBag.User = dao.GetUserByuserid(userId);
             return View();
         }
+        public ActionResult Logout()
+        {
+            Session.Clear();
+          
+            return RedirectToAction ("Index","Intro");
+        }
         [HttpPost]
         public ActionResult EditProfile(string fullname, string bio, DateTime dob, string email, int gender)
         {
