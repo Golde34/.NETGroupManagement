@@ -71,7 +71,10 @@
                                     @user.dob
                                     <span><a style="color: red;" href="">   Edit</a></span>
                                 </p>
-                                <p>Your public name will be visible on your public profile page and elsewhere on Bmazon.</p>
+                                <p>
+                                    Your public name will be visible on your public profile page and elsewhere on Lil Lab.
+                                    @String.Format("{0:MM/dd/yyyy}", user.dob)
+                                </p>
                                 <br>
                             </div>
 
@@ -82,26 +85,38 @@
                                         <p>Bio</p>
                                         <textarea name="bio" placeholder="Share a little about you" >@user.bio</textarea>
                                         <p>Date of birth</p>
-                                        <input type="datetime" name="dob" value=" @user.dob " >
+                                        <input type="text" name="dob" value="@String.Format("{0:MM/dd/yyyy}",user.dob)"/>
                                     </div>
                                     <div class="col-md-6">
                                         <p>Location</p>
                                         <input name="email" type="text" value="@user.email" placeholder="Enter your location">
                                         <p>Occupation</p>
-                                        @if (user.gender==0)
+                                        @if (user.gender == 0)
                                         {
                                             <select name="gender">
                                                 <option value="1">Female</option>
                                                 <option value="0" selected>Male</option>
+                                                <option value="2">Other</option>
+                                            </select>
+                                        }
+                                        else if (user.gender == 1)
+                                        {
+
+
+
+                                            <select name="gender">
+                                                <option value="0">Male</option>
+                                                <option value="1" selected>Female</option>
+                                                <option value="2">Other</option>
                                             </select>
                                         }
                                         else
                                         {
-
-                                        <select name="gender">
-                                            <option value="0">Male</option>
-                                            <option value="1" selected>Female</option>
-                                        </select>
+                                            <select name="gender">
+                                                <option value="0">Male</option>
+                                                <option value="1" >Female</option>
+                                                <option value="2" selected>Other</option>
+                                            </select>
                                         }
                                     </div>
                                     <br>

@@ -198,7 +198,7 @@
     <div class="row py-5 px-4">
         <div class="col-md-10 mx-auto">
             <!-- Profile widget -->
-            <div class="bg-white shadow rounded overflow-hidden" style="width: 800px; margin: auto;">
+            <div class="bg-white shadow rounded overflow-hidden" style="width: 900px; margin: auto;">
                 <!--Avatar-->
                 @using (Html.BeginForm("UserProfile", "Account", FormMethod.Post, new { @class = "form-userprofile" }))
                 {
@@ -223,11 +223,20 @@
                     <br>
                     <div class="row" style="margin-top: 10px;">
                         <div class="py-4 px-4" style="margin: auto;">
-                            <div class="row" style="width: 800px;">
+                            <div class="row" style="width: 850px;">
                                 <div class="pr-lg-1 mb-2 col-md-4">
                                     <div class="left-component p-4 rounded shadow-sm">
-                                        <h4 class="mb-0"><strong>About</strong></h4>
+                                        <h4 class="mb-0" style="text-align:center;"><strong>About</strong></h4>
                                         <br />
+                                        <p>DOB: @String.Format("{0:MM/dd/yyyy}", user.dob)</p>
+                                        @if (user.gender == 0)
+                                        {
+                                            <p>Gender: Female</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Gender: Male</p>
+                                        }
                                         <p>Bio: @user.bio</p>
                                         <div style="font-size: 25px;" class="row col-md-12">
                                             <a href="" target="_blank" class="col-md-3">
@@ -247,7 +256,7 @@
                                     </div>
                                     <br>
                                     <div class="left-component p-4 rounded shadow-sm">
-                                        <h4 class="mb-0"><strong>Account</strong></h4>
+                                        <h4 class="mb-0" style="text-align:center;"><strong>Account</strong></h4>
                                         <br />
                                         <p style="color: #333">Username: @user.username</p>
                                         <a style="color: #00669c;" href="@Url.Action("ChangePass","Account")"> Change password</a>
@@ -257,14 +266,14 @@
                                 </div>
 
                                 <div class="mb-2 pl-lg-1 col-md-8">
-                                    <div class="right-component p-4 rounded shadow-sm bg-light">
-                                        <div class="py-3 d-flex justify-content-between" style="margin-left:180px;">
+                                    <div class="right-component p-4 rounded shadow-sm bg-light" style="margin-left: 20px;">
+                                        <div class="py-3 d-flex justify-content-between" style="margin-left:190px;">
                                             <h3 class="mb-0"><strong>Groups</strong></h3>
                                         </div>
                                     </div>
                                     @foreach (var item in Model)
                                     {
-                                        <div class="right-component p-4 rounded shadow-sm bg-light">
+                                        <div class="right-component p-4 rounded shadow-sm bg-light" style="margin-left: 20px;">
                                             <div class="row first-right-comment" style="padding-left: 15px;">
                                                 <p style="padding: 7px; color: black; font-size:25px; ">@item.groupName</p>
                                             </div>
@@ -272,12 +281,12 @@
                                         </div><br>
                                     }
                                 </div>
-                                </div>
                             </div>
                         </div>
-                        }
                     </div>
-                </div>
+                }
             </div>
-        </body>
-    </html>
+        </div>
+    </div>
+</body>
+</html>

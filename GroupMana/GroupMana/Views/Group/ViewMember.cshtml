@@ -230,7 +230,7 @@
                                             <tr>
                                                 <td>@p.User.fullname</td>
                                                 <td>@p.Role.roleName</td>
-                                                @if (@p.roleId != 1 &&  )
+                                                @if (@p.roleId != 1 )
                                                 {
                                                     <td><a class="btn btn-success" href="@Url.Action("UpdateMember","Group",new { member = p.userID })">Update</a></td>
                                                     <td><a class="btn btn-danger" href="@Url.Action("RemoveMember","Group",new { member = p.userID })">Remove</a></td>
