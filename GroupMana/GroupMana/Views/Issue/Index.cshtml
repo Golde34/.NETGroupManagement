@@ -203,7 +203,7 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="@Url.Action("Logout","Account")" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("Logout","Account")">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -257,15 +257,26 @@
 
                                                   
                                                 <tr>
-
-                                                    <td><a href="@Url.Action("IssueDetail", "Issue", new { iid = item.issueId })">@item.title</a></td>
-                                                    <td>@item.startDate</td>
-                                                    <td>@item.dueDate</td>
                                                     @{
 
                                                         User user = model.Users.Find(item.creator);
                                                         User assignee = model.Users.Find(item.assignee);
                                                     }
+
+                                                    <td>
+                                                        @if (ux.userID == item.assignee || ux.userID == item.creator)
+                                                        {
+                                                            <a href="@Url.Action("IssueDetail", "Issue", new { iid = item.issueId })">@item.title</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.title
+                                                        }
+
+                                                    </td>
+                                                    <td>@item.startDate</td>
+                                                    <td>@item.dueDate</td>
+
                                                     <td>@user.fullname</td>
                                                     <td>@assignee.fullname</td>
                                                     @if (item.state == 0)
@@ -297,15 +308,17 @@
                                                     @if (ux.roleId == 1 && item.status == false)
                                                     {
                                                         <td>
-                                                            <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })">Edit</a></td>
+                                                            <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })">Edit</a>
+                                                        </td>
                                                         <td>
-                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a></td>
+                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
+                                                        </td>
 
-                                                            }
+                                                    }
 
 
 
-                                                    </tr>
+                                                </tr>
                                                 }
                                             </tbody>
                                         </table>
