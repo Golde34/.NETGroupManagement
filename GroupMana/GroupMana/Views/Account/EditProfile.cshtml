@@ -69,7 +69,7 @@
                                 <p>
                                     This will not change the name associated with your account  @user.fullname
                                     @user.dob
-                                    <span><a style="color: red;" href="">   Edit</a></span>
+                                   
                                 </p>
                                 <p>
                                     Your public name will be visible on your public profile page and elsewhere on Lil Lab.
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p>Location</p>
-                                        <input name="email" type="text" value="@user.email" placeholder="Enter your location">
+                                        <input name="email" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" type="text" value="@user.email" placeholder="Enter your location">
                                         <p>Occupation</p>
                                         @if (user.gender == 0)
                                         {
@@ -101,8 +101,6 @@
                                         }
                                         else if (user.gender == 1)
                                         {
-
-
 
                                             <select name="gender">
                                                 <option value="0">Male</option>
