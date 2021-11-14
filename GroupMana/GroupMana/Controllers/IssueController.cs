@@ -114,17 +114,26 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult AddIssue(string title, DateTime duedate, DateTime startdate, string description, string content,int assignee)
         {
+            int userId = (int)Session["idUser"];
+            User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
+            ViewBag.user = user;
+            int groupId = (int)Session["groupId"];
+            var members = model.Members.Where(s => s.groupId == groupId && s.state == 1 && s.status == true).ToList();
             int creator = (int)Session["idUser"];
             int projectId = (int)Session["projectId"];
             Issue issue = new Issue { assignee = assignee, content = content, creator = creator, description = description, dueDate = duedate, projectId = projectId, startDate = startdate, title = title, state = 1, status = true };
             model.Issues.Add(issue);
+            ViewBag.mess = "Add issue success!";
             model.SaveChanges();
-            return RedirectToAction("AddIssue");
+            return View(members);
         }
 
         [HttpGet]
         public ActionResult IssueDetail(String iid)
         {
+            int uid = (int)Session["idUser"];
+            User x = model.Users.SingleOrDefault(b => b.userID == uid);
+            ViewBag.user = x;
             int id = int.Parse(iid);
             ViewBag.Issue = model.Issues.FirstOrDefault(i => i.issueId == id);
             return View();

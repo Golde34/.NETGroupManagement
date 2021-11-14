@@ -163,7 +163,11 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
+<<<<<<< Updated upstream
                                 <a class="dropdown-item" href="@Url.Action("Logout","Account")">
+=======
+                                <a class="dropdown-item" href="@Url.Action("Logount","Account")">
+>>>>>>> Stashed changes
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -192,7 +196,7 @@
                                 @using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { @class = "form-addissue" }))
                                 {
                                     <div class="card-body">
-
+                                        <h6 class="text-success">@ViewBag.mess</h6>
                                         <table class="table" style="width:100%;">
                                             <tr>
                                                 <td>Title</td>
@@ -245,7 +249,6 @@
                                                 <td>
                                                     <input type="submit" value="Add Issue" class="btn btn-primary">
                                                     <br />
-                                                    <h6 class="text-success px-4 noti">@ViewBag.Mess</h6>
                                                 </td>
                                             </tr>
                                         </table>

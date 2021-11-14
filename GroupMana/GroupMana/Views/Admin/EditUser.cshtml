@@ -172,6 +172,8 @@
                                 </a>
                             </div>
                             <div class="card-body">
+                                <h6 class="text-danger">@ViewBag.mess</h6>
+                                <h6 class="text-success">@ViewBag.mess1</h6>
                                 @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post, new { @class = "form-addgroup" }))
                                 {
                                     <table style="width: 100%;" class="table">

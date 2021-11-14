@@ -218,6 +218,8 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Invite Member</h6>
                                 </div>
                                 <div class="card-body">
+                                    <h6 class="text-danger">@ViewBag.message</h6>
+                                    <h6 class="text-success">@ViewBag.mess</h6>
                                     @using (Html.BeginForm("InviteMember", "Group", FormMethod.Post))
                                     {
                                         <table class="table">
@@ -226,8 +228,8 @@
                                                 <td style="width: 70%;">
                                                     <input type="text" name="username" placeholder="User name to invite" class="form-control" />
                                                     @*<div class="invalid-feedback">
-                                                            Not blank and no space at beginning or ending
-                                                        </div>*@
+                            Not blank and no space at beginning or ending
+                        </div>*@
                                                 </td>
                                             </tr>
                                             <tr>

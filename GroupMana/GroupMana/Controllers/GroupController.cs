@@ -169,7 +169,12 @@ namespace GroupMana.Controllers
             ViewBag.user = x;
             int groupId = (int)Session["groupId"];
             bool isExist = false;
-            User user = dao.Users.SqlQuery($"select * from Users where username = '{username}'").First();
+            User user = dao.Users.SqlQuery($"select * from Users where username = '{username}'").FirstOrDefault();
+            if (user == null)
+            {
+                ViewBag.message = "User not exist";
+                return View();
+            }
             var groups = dao.Members.Where(s => s.groupId == groupId && s.userID==user.userID && s.status==true).FirstOrDefault();
             if (groups != null)
             {
@@ -183,6 +188,7 @@ namespace GroupMana.Controllers
             Member member = new Member { groupId = groupId, roleId = role, userID = user.userID, status = true, state = 0 };
             dao.Members.Add(member);
             dao.SaveChanges();
+            ViewBag.mess = "Invite has been sent";
             return View();
         }
         public ActionResult RemoveMember(int member)

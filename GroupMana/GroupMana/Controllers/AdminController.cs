@@ -38,12 +38,12 @@ namespace GroupMana.Controllers
             bool isExist;
             if (dao.checkExistUsername(username) == true)
             {
-                ViewBag.messRegis = "Duplicate username!";
+                ViewBag.mess = "Duplicate username!";
                 isExist = true;
             }
             else if (dao.checkExistMail(email) == true)
             {
-                ViewBag.messRegis = "Duplicate mail!";
+                ViewBag.mess = "Duplicate mail!";
                 isExist = true;
             }
             else
@@ -54,7 +54,7 @@ namespace GroupMana.Controllers
             //
             if (isExist == false)
             {
-                ViewBag.messRegis = "Add Succesfully";
+                ViewBag.mess1 = "Add Succesfully";
                 User user = new User { username = username, password = password, email = email, fullname = fullname, gender = gen, isAdmin = isAdmin, status = true };
                 model.Users.Add(user);
                 model.SaveChanges();
@@ -88,12 +88,12 @@ namespace GroupMana.Controllers
             bool isExist=false;
             if (dao.checkExistUsername(username) == true && !username.Equals(user.username))
             {
-                ViewBag.messRegis = "Duplicate username!";
+                ViewBag.mess = "Duplicate username!";
                 isExist = true;
             }
             else if (dao.checkExistMail(email) == true && !email.Equals(user.email))
             {
-                ViewBag.messRegis = "Duplicate mail!";
+                ViewBag.mess = "Duplicate mail!";
                 isExist = true;
             }
             else
@@ -102,7 +102,7 @@ namespace GroupMana.Controllers
             }
             if (isExist == false)
             {
-                ViewBag.messRegis = "Edit Succesfully";
+                ViewBag.mess1 = "Edit Succesfully";
                 user.username = username;
                 user.isAdmin = isAdmin;
                 user.gender = gen;
@@ -165,17 +165,14 @@ namespace GroupMana.Controllers
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
             Role role = new Role { roleName = rolename ,status=true};
-            model.Roles.Add(role);
-            model.SaveChanges();
-            return View();
-            /*bool isExist = false;
+            bool isExist = false;
             if (model.Roles.Where(s => s.roleName.Equals(rolename)).FirstOrDefault() != null)
             {
                 isExist = true;
             }
-            if (isExist==false)
+            if (isExist == false)
             {
-                ViewBag.mess = "Add successfully";
+                ViewBag.mess1 = "Add successfully";
                 model.Roles.Add(role);
                 model.SaveChanges();
                 return View();
@@ -184,7 +181,7 @@ namespace GroupMana.Controllers
             {
                 ViewBag.mess = "Exist Role";
                 return View();
-            }*/
+            }
         }
         public ActionResult EditRole(string id)
         {
