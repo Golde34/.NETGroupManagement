@@ -55,7 +55,7 @@ namespace GroupMana.Controllers
         [HttpPost]
         public ActionResult Register(string signupusername, string signuppass, string resignuppass, string mail, string fname)
         {
-            Boolean isExist;
+            bool isExist;
             if (dao.checkExistUsername(signupusername) == true)
             {
                 ViewBag.messRegis = "Duplicate username!";

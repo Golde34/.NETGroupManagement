@@ -14,9 +14,9 @@ namespace GroupMana.Models
         [StringLength(255)]
         public string title { get; set; }
 
-        public DateTime? dueDate { get; set; }
+        public DateTime dueDate { get; set; }
 
-        public DateTime? startDate { get; set; }
+        public DateTime startDate { get; set; }
 
         [StringLength(255)]
         public string description { get; set; }

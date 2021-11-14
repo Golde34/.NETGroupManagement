@@ -98,5 +98,21 @@ namespace GroupMana.Controllers
             return View();
         }
 
+        public ActionResult AddIssue()
+        {
+            int groupId = (int)Session["groupId"];
+            var members = model.Members.Where(s => s.groupId == groupId).ToList();
+            return View(members);
+        }
+        [HttpPost]
+        public ActionResult AddIssue(string title, DateTime duedate, DateTime startdate, string description, string content,int assignee)
+        {
+            int creator = (int)Session["idUser"];
+            int projectId = (int)Session["projectId"];
+            Issue issue = new Issue { assignee = assignee, content = content, creator = creator, description = description, dueDate = duedate, projectId = projectId, startDate = startdate, title = title, state = 1, status = true };
+            model.Issues.Add(issue);
+            model.SaveChanges();
+            return RedirectToAction("AddIssue");
+        }
     }
 }

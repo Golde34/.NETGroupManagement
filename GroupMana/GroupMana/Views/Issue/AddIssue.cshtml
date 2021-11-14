@@ -155,7 +155,7 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="@Url.Action("Logout","Account")" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("Logount","Account")" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -181,14 +181,15 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Issue</h6>
                                 </div>
-                                @using (Html.BeginForm("EditIssue", "Issue", FormMethod.Post, new { @class = "form-editissue" }))
+                                @using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { @class = "form-addissue" }))
                                 {
                                     <div class="card-body">
+
                                         <table class="table" style="width:100%;">
                                             <tr>
                                                 <td>Title</td>
                                                 <td>
-                                                    <input pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" class="form-control" value="@issue.title" type="text" name="title" required>
+                                                    <input pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" class="form-control" type="text" name="title" required>
                                                     <div class="invalid-feedback">
                                                         Not blank and no space at beginning or ending
                                                     </div>
@@ -196,18 +197,16 @@
                                             </tr>
                                             <tr>
                                                 <td>Start Date</td>
-                                                @{ string startdate = issue.startDate.ToString("yyyy-MM-dd");}
-                                                <td><input max="2050-01-01" id="inputDate1" required class="form-control" value="@startdate" type="date" name="startdate"></td>
+                                                <td><input max="2050-01-01" id="inputDate1" required class="form-control" type="date" name="startdate"></td>
                                             </tr>
                                             <tr>
                                                 <td>Due Date</td>
-                                                @{ string duedate = issue.dueDate.ToString("yyyy-MM-dd");}
-                                                <td><input max="2050-01-01" id="inputDate2" required class="form-control" value="@duedate" type="date" name="duedate"></td>
+                                                <td><input max="2050-01-01" id="inputDate2" required class="form-control" type="date" name="duedate"></td>
                                             </tr>
                                             <tr>
                                                 <td>Description</td>
                                                 <td>
-                                                    <textarea pattern="^[^\s]+(\s+[^\s]+)*$" name="description" class="form-control" required>@issue.description</textarea>
+                                                    <textarea pattern="^[^\s]+(\s+[^\s]+)*$" name="description" class="form-control" required></textarea>
                                                     <div class="invalid-feedback">
                                                         Not blank and no space at beginning or ending
                                                     </div>
@@ -216,18 +215,29 @@
                                             <tr>
                                                 <td>Content</td>
                                                 <td>
-                                                    <textarea pattern="^[^\s]+(\s+[^\s]+)*$" name="content" class="form-control" required>@issue.content</textarea>
+                                                    <textarea pattern="^[^\s]+(\s+[^\s]+)*$" name="content" class="form-control" required></textarea>
                                                     <div class="invalid-feedback">
                                                         Not blank and no space at beginning or ending
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Assign to</td>
+                                                <td>
+                                                    <select name="assignee">
+                                                        @foreach(Member item in Model) 
+                                                        { 
+                                                            <option value="@item.userID">@item.User.fullname</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td></td>
                                                 <td>
-                                                    <input type="hidden" value="@issue.issueId" name="issueid">
                                                     <input type="submit" value="Update Issue" class="btn btn-primary">
-                                                    <h6 class="text-success px-4 noti" style="margin-top: 20px;">@ViewBag.Mess</h6>
+                                                    <br />
+                                                    <h6 class="text-success px-4 noti">@ViewBag.Mess</h6>
                                                 </td>
                                             </tr>
                                         </table>
