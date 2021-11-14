@@ -21,6 +21,7 @@ namespace GroupMana.Controllers
         {
             return View(dao.Groups.ToList());
         }
+
         [HttpPost]
         public ActionResult AddGroup(string groupname, string description, string purpose, string state)
         {
@@ -89,6 +90,14 @@ namespace GroupMana.Controllers
 
             return View(links);
         }
+
+        public ActionResult ModifyGroup()
+        {
+            int groupId = (int)Session["groupId"];
+            Group g = db.GetGroupsOfId(groupId);
+            return View(g);
+        }
+
         public ActionResult ViewMember()
         {
 
