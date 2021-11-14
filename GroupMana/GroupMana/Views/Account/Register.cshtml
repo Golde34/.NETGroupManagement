@@ -35,20 +35,20 @@
 
                 <label for="user" class="label">Username</label>
                 <input id="user" type="text" name="signupusername" placeholder="Username" pattern="^\S+$"
-                       value="" class="form-control" required autofocus="">
+                       value="@ViewBag.usernameRegis" class="form-control" required autofocus="">
 
                 <label for="fullname" class="label">Full Name</label>
-                <input id="fullname" type="text" pattern=".*\S+.*" name="fname" class="form-control" value="" placeholder="Your full name" required autofocus="">
+                <input id="fullname" type="text" pattern=".*\S+.*" name="fname" class="form-control" value="@ViewBag.nameRegis" placeholder="Your full name" required autofocus="">
 
                 <label for="email" class="label">Email</label>
-                <input id="email" type="text" name="mail" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" value="" class="form-control" placeholder="Your email" required autofocus="">
+                <input id="email" type="text" name="mail" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" value="@ViewBag.mailRegis" class="form-control" placeholder="Your email" required autofocus="">
 
                 <label for="pass" class="label">Password</label>
                 <input id="pass" type="password" name="signuppass" placeholder="Password" pattern="^\S+$"
-                       value="" class="form-control" data-type="password" required autofocus="">
+                       value="@ViewBag.passRegis" class="form-control" data-type="password" required autofocus="">
 
                 <label for="pass" class="label">Repeat Password</label>
-                <input id="repassword" oninput="check(this)" type="password" name="resignuppass" value="" class="form-control" placeholder="Repeat Password" data-type="password" required autofocus="">
+                <input id="repassword" oninput="check(this)" type="password" name="resignuppass" value="@ViewBag.repassRegis" class="form-control" placeholder="Repeat Password" data-type="password" required autofocus="">
 
                 <br>
                 <p class="text-right" style="font-size: 12px;">@ViewBag.MessRegis</p>

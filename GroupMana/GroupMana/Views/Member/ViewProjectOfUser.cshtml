@@ -62,10 +62,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("ViewGroupsOfUser","Member")">View your groups</a>
                         <a class="collapse-item" href="@Url.Action("AddGroup","Group")">Create a group</a>
-                        @if (ux.roleId == 1)
-                        {
-                            <a class="collapse-item" href="@Url.Action("Modify","Group",)">Modify a group</a>
-                        }
                         <a class="collapse-item" href="@Url.Action("ViewMember","Group")">View members</a>
                         <a class="collapse-item" href="@Url.Action("InviteMember","Group")">Invite members</a>
                     </div>

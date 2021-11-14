@@ -276,25 +276,21 @@
                                                     {
                                                         <td>Done</td>
                                                     }
-                                                    <td>
-                                                        <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })" >Edit</a>
-                                                    </td>
+                                                <td>
+                                                    <a class="btn btn-success" href="@Url.Action("EditIssue", "Issue", new { iid = item.issueId })">Edit</a>
                                                     @if (ux.roleId == 1 && item.status == true)
                                                     {
-                                                        <td>
-                                                            <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
-                                                        </td>
+                                                        <a class="btn btn-danger" href="@Url.Action("Delete", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Delete</a>
 
 
                                                     }
                                                     @if (ux.roleId == 1 && item.status == false)
                                                     {
 
-                                                        <td>
-                                                            <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
-                                                        </td>
+                                                        <a class="btn btn-success" href="@Url.Action("Restore", "Issue", new { id = item.issueId })" onclick="return confirm('Are you sure?');">Restore</a>
 
                                                     }
+                                                </td>
 
 
                                                 </tr>

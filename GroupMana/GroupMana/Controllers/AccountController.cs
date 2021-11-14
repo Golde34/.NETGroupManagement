@@ -80,6 +80,11 @@ namespace GroupMana.Controllers
             }
             else
             {
+                ViewBag.usernameRegis = signupusername;
+                ViewBag.nameRegis = fname;
+                ViewBag.mailRegis = mail;
+                ViewBag.passRegis = signuppass;
+                ViewBag.repassRegis = resignuppass;
                 return View();
             }
         }
