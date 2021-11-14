@@ -66,7 +66,7 @@ namespace GroupMana.Controllers
         public ActionResult EditIssue(string iid)
         {
             int userId = (int)Session["idUser"];
-            ViewBag.User = dao.GetUserByuserid(userId);
+            ViewBag.Member = model.Members.FirstOrDefault(i => i.userID == userId);
             int id = int.Parse(iid);
             ViewBag.Issue = model.Issues.FirstOrDefault(i => i.issueId == id);
             return View();
