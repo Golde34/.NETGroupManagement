@@ -224,7 +224,7 @@ namespace GroupMana.Controllers
             x.gender = gender;
             model.SaveChanges();
 
-            ViewBag.User = model.Members.Find(userId);
+            ViewBag.User = model.Users.Find(userId);
             return View();
         }
     }
