@@ -17,6 +17,10 @@ namespace GroupMana.Controllers
             int userId = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             var users = model.Users.ToList();
             return View(users);
         }
@@ -25,6 +29,10 @@ namespace GroupMana.Controllers
             int userId = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             return View();
         }
         [HttpPost]
@@ -70,6 +78,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user1 = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             ViewBag.user = user;
@@ -124,6 +136,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             user.status = false;
@@ -136,6 +152,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int userId = Convert.ToInt32(id);
             User user = model.Users.Where(s => s.userID == userId).FirstOrDefault();
             user.status = true;
@@ -148,6 +168,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             var roles = model.Roles.ToList();
             return View(roles);
         }
@@ -156,6 +180,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             return View();
         }
         [HttpPost]
@@ -188,6 +216,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             ViewBag.role = role;
@@ -230,6 +262,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             role.status = false;
@@ -242,6 +278,10 @@ namespace GroupMana.Controllers
             int uid = (int)Session["idUser"];
             User x = model.Users.Where(s => s.userID == uid).FirstOrDefault();
             ViewBag.user = x;
+            if (x.isAdmin == false)
+            {
+                return RedirectToAction("ViewGroupsOfUser", "Member");
+            }
             int roleId = Convert.ToInt32(id);
             Role role = model.Roles.Where(s => s.roleId == roleId).FirstOrDefault();
             role.status = true;
