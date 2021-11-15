@@ -201,7 +201,8 @@ namespace GroupMana.Controllers
                 return RedirectToAction("ViewMember");
         }
         public ActionResult UpdateMember(string member)
-        {    int memberid = int.Parse(member);
+        {   
+            int memberid = int.Parse(member);
             int userId = (int)Session["idUser"];
             User x = dao.Users.Where(s => s.userID == userId).FirstOrDefault();
             ViewBag.user = x;
@@ -213,8 +214,9 @@ namespace GroupMana.Controllers
         public ActionResult UpdateMemberRole(string role,string userid)
         {
             int memberid = int.Parse(userid);
+            int group = (int)Session["groupId"];
 
-           var x= dao.Members.SingleOrDefault(b => b.userID == memberid);
+            var x= dao.Members.SingleOrDefault(b => b.userID == memberid&&b.groupId==group);
             x.roleId = int.Parse(role);
             dao.SaveChanges();
             return RedirectToAction("ViewMember");
