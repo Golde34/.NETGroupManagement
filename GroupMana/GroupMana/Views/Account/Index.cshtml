@@ -36,10 +36,10 @@
                 <!--sign in-->
                 <label for="user" class="label">Username</label>
                 <input id="user" type="text" name="username" placeholder="Username" pattern="^\S+$"
-                       value="" class="form-control" required autofocus="">
+                       value="@ViewBag.name" class="form-control" required autofocus="">
                 <label for="pass" class="label">Password</label>
                 <input id="pass" type="password" name="password" placeholder="Password" pattern="^\S+$"
-                       value="" class="form-control" data-type="password" required autofocus="">
+                       value="@ViewBag.pass" class="form-control" data-type="password" required autofocus="">
                 <br>
 
                 <h6 class="text-danger">@ViewBag.error</h6>

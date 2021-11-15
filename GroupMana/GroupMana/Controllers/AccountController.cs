@@ -35,6 +35,8 @@ namespace GroupMana.Controllers
             }
             else
             {
+                ViewBag.name = username;
+                ViewBag.pass = password;
                 ViewBag.error = "Login failed";
                 return View();
             }
