@@ -268,6 +268,19 @@ namespace GroupMana.Controllers
                 return null;
             }
         }
+        public List<Issue> GetIssueOfProjectTrue(int projectId)
+        {
+            try
+            {
+                var issues = from issue in db.Issues where (issue.projectId == projectId&& issue.status==true) select issue;
+                return issues.ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+                return null;
+            }
+        }
 
         public Issue GetIssueByIssueID(int issueid)
         {

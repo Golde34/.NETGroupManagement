@@ -30,8 +30,16 @@ namespace GroupMana.Controllers
             ViewBag.user = user;
             int groupId = (int)Session["groupId"];
             int projectid = (int)Session["projectId"];
-            ViewBag.Member = model.Members.Where(s => s.groupId == groupId && s.userID == userId).FirstOrDefault();
+
+           var member = model.Members.Where(s => s.groupId == groupId && s.userID == userId && s.status==true).FirstOrDefault();
+            ViewBag.Member = member;
             var x = dao.GetIssueOfProject(projectid);
+            if (member.roleId!=1)
+            {
+              x = dao.GetIssueOfProjectTrue(projectid);
+            }
+            
+
             return View(x);
         }
 
